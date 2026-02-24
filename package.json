@@ -1,0 +1,36 @@
+{
+  "name": "hibiki",
+  "version": "1.0.0",
+  "description": "osu! bot for Fluxer",
+  "keywords": [
+    "osu",
+    "bot",
+    "fluxer"
+  ],
+  "homepage": "https://github.com/ravener/hibiki#readme",
+  "bugs": {
+    "url": "https://github.com/ravener/hibiki/issues"
+  },
+  "imports": {
+    "#lib/*": "./dist/lib/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ravener/hibiki.git"
+  },
+  "license": "MIT",
+  "author": "Ravener",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@fluxerjs/core": "^1.2.2",
+    "dotenv": "^17.3.1"
+  }
+}
