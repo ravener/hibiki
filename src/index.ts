@@ -6,9 +6,7 @@ import { readdir } from 'node:fs/promises';
 import { dirname, join, parse } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { OwnerId } from '#lib/constants';
-
-// TODO Database
-const PREFIX = ">";
+import { getPrefix } from '#lib/db';
 
 const client = new Client({ intents: 0 });
 const commands = new Map<string, Command>();
@@ -49,9 +47,10 @@ client.on(Events.Ready, () => {
 
 client.on(Events.MessageCreate, async (message: Message) => {
     if (message.author.bot || message.author.system || message.webhookId) return;
-    if (!message.content.startsWith(PREFIX)) return;
+    const prefix = message.guildId ? await getPrefix(message.guildId) ?? ">" : ">";
+    if (!message.content.startsWith(prefix)) return;
 
-    const [cmdName, ...args] = message.content.slice(PREFIX.length).trim().split(/\s+/);
+    const [cmdName, ...args] = message.content.slice(prefix.length).trim().split(/\s+/);
     if (!cmdName) return;
     const command = commands.get(cmdName) || commands.get(aliases.get(cmdName)!);
 
