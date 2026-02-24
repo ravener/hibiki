@@ -4,7 +4,8 @@ import { inspect } from 'node:util';
 
 export const config: CommandConfig = {
     description: 'Evaluates arbitrary JavaScript',
-    ownerOnly: true
+    ownerOnly: true,
+    aliases: ['ev']
 };
 
 export async function run(message: Message, args: string[]) {
