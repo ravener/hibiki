@@ -5,6 +5,7 @@ export interface CommandConfig {
     aliases?: string[];
     description?: string;
     ownerOnly?: boolean;
+    guildOnly?: boolean;
 }
 
 export type CommandRun = (message: Message, args: string[]) => Promise<void>;

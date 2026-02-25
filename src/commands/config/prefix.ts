@@ -1,0 +1,21 @@
+import type { CommandConfig } from "#lib/command";
+import { guilds } from "#lib/db";
+import type { Message } from "@fluxerjs/core";
+
+export const config: CommandConfig = {
+    description: 'Configure the server\'s prefix',
+    guildOnly: true
+};
+
+export async function run(message: Message, args: string[]) {
+    const config = await guilds.get(message.guildId!) ?? {};
+
+    if (!args.length) {
+        await message.reply(`The current prefix is \`${config?.prefix ?? '>'}\``);
+        return;
+    }
+
+    config.prefix = args[0]!;
+    await guilds.set(message.guildId!, config);
+    await message.reply(`Prefix updated to \`${config.prefix}\``);
+}
