@@ -16,7 +16,7 @@ export async function run(message: Message, args: string[]) {
             'You can invite me to your community using the following link:',
             '',
             `• :link: ${link('Invite Link', Links.Invite)}`,
-            `• :inbox_tray: ${link('Join Misaki\'s community', Links.Community)}`
+            `• :inbox_tray: ${link('Join Support Community', Links.Community)}`
         ].join('\n'));
 
     await message.reply({ embeds: [embed] });

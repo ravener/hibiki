@@ -10,7 +10,7 @@ export const enum Channels {
 }
 
 export const enum Links {
-    Invite = '',
+    Invite = 'https://web.fluxer.app/oauth2/authorize?client_id=1475787576686872332&scope=bot&permissions=4503599627750464',
     Community = 'https://fluxer.gg/VPvUEd0S',
     GitHub = 'https://github.com/ravener/hibiki'
 }
@@ -20,8 +20,14 @@ export enum RankingEmojis {
     B = '<:rankingB:1476542943264067615>',
     C = '<:rankingC:1476542944899846176>',
     D = '<:rankingD:1476542946594344993>',
+    F = '<:rankingF:1476576136772964502>',
     S = '<:rankingS:1476542948238512162>',
     SH = '<:rankingSH:1476542949983342627>',
     X = '<:rankingX:1476542951694618660>',
     XH = '<:rankingXH:1476542953393311781>'
+}
+
+
+export const enum Emojis {
+    Miss = '<:miss:1476576854632296624>'
 }

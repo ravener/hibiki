@@ -1,5 +1,5 @@
 import { type CommandConfig } from '#lib/command';
-import { Colors, RankingEmojis } from '#lib/constants';
+import { Colors, Emojis, RankingEmojis } from '#lib/constants';
 import { api } from '#lib/osu';
 import { getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
@@ -21,6 +21,7 @@ export async function run(message: Message, args: string[]) {
     }
 
     const mods = score.mods.map(mod => mod.acronym).join('');
+    const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
 
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
@@ -29,8 +30,8 @@ export async function run(message: Message, args: string[]) {
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
         .setURL(`https://osu.ppy.sh/b/${score.beatmapset.id}`)
         .setDescription([
-            `${RankingEmojis[score.rank as keyof typeof RankingEmojis]} +**${mods}**    **${score.total_score.toLocaleString()}**    **${score.accuracy * 100}%**`,
-            `${score.pp}PP • ${score.max_combo}/${score.maximum_statistics.perfect}`,
+            `${rankEmote} +**${mods}**    **${score.total_score.toLocaleString()}**    **${score.accuracy * 100}%**`,
+            `**${score.pp?.toLocaleString()}PP** • **${score.max_combo.toLocaleString()}x** • ${score.statistics.miss} ${Emojis.Miss}`,
         ].join('\n'));
 
     await message.reply({ embeds: [embed] });
