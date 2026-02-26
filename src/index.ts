@@ -7,10 +7,9 @@ import { dirname, join, parse } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { OwnerId } from '#lib/constants';
 import { getPrefix } from '#lib/db';
+import { aliases, commands, handleCommands } from '#lib/command-handler';
 
 const client = new Client({ intents: 0 });
-const commands = new Map<string, Command>();
-const aliases = new Map<string, string>();
 
 async function loadCommands() {
     const baseDir = fileURLToPath(dirname(import.meta.url));
@@ -46,18 +45,9 @@ client.on(Events.Ready, () => {
 });
 
 client.on(Events.MessageCreate, async (message: Message) => {
-    if (message.author.bot || message.author.system || message.webhookId) return;
-    const prefix = message.guildId ? await getPrefix(message.guildId) ?? ">" : ">";
-    if (!message.content.startsWith(prefix)) return;
-
-    const [cmdName, ...args] = message.content.slice(prefix.length).trim().split(/\s+/);
-    if (!cmdName) return;
-    const command = commands.get(cmdName) || commands.get(aliases.get(cmdName)!);
-
-    if (!command) return;
-    if (command.config.ownerOnly && message.author.id !== OwnerId) return;
-    await command.run(message, args);
+    await handleCommands(message);
 });
 
 await loadCommands();
+console.log(`Loaded ${commands.size} commands`);
 await client.login(process.env.TOKEN!);

@@ -55,3 +55,7 @@ async function request(endpoint: string) {
     const response = await fetch(`https://osu.ppy.sh/api/v2${endpoint}`, { headers });
     return response;
 }
+
+async function getUser(username: string) {
+
+}
