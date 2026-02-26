@@ -13,7 +13,12 @@ export async function run(message: Message, args: string[]) {
     if (!user) return;
 
     const scores = await api.getUserScores(user.id, 'recent');
-    const score = scores[0]!;
+    const score = scores[0];
+
+    if (!score) {
+        await message.reply(`No recent plays found for user **${user.username}**`);
+        return;
+    }
 
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
