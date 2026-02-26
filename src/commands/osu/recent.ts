@@ -20,6 +20,8 @@ export async function run(message: Message, args: string[]) {
         return;
     }
 
+    const mods = score.mods.map(mod => mod.acronym).join();
+
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
         .setTitle(score.beatmapset.title)
@@ -27,7 +29,8 @@ export async function run(message: Message, args: string[]) {
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
         .setURL(`https://osu.ppy.sh/b/${score.beatmapset.id}`)
         .setDescription([
-            `▸ ${RankingEmojis[score.rank as keyof typeof RankingEmojis]} ▸ ${score.pp} pp ▸ ${score.accuracy}%`,
+            `${RankingEmojis[score.rank as keyof typeof RankingEmojis]}\t+${mods}\t${score.total_score.toLocaleString()}\t${score.accuracy * 100}%`,
+            `${score.pp}PP • ${score.max_combo}/${(score.beatmap as unknown as any)['max_combo']! as string}`,
         ].join('\n'));
 
     await message.reply({ embeds: [embed] });
