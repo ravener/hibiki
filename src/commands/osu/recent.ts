@@ -25,13 +25,13 @@ export async function run(message: Message, args: string[]) {
 
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
-        .setTitle(`${score.beatmapset.title} [${score.beatmap.version}] [${score.beatmap.difficulty_rating}★]`)
+        .setTitle(`${score.beatmapset.title} [${score.beatmap.version}] [${score.beatmap.difficulty_rating.toFixed(2)}★]`)
         .setThumbnail(`https://b.ppy.sh/thumb/${score.beatmapset.id}l.jpg`)
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
         .setURL(score.beatmap.url)
         .setDescription([
-            `${rankEmote} +**${mods}** • **${score.total_score.toLocaleString()}** • **${score.accuracy * 100}%**`,
-            `**${score.pp?.toLocaleString()}PP** • **${score.max_combo.toLocaleString()}x** • ${score.statistics.miss} ${Emojis.Miss}`,
+            `${rankEmote} +**${mods}** • **${score.total_score.toLocaleString()}** • **${(score.accuracy * 100).toFixed(2)}%** • <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`,
+            `**${score.pp?.toFixed(2)}PP** • **${score.max_combo.toLocaleString()}x** • ${score.statistics.miss} ${Emojis.Miss}`,
         ].join('\n'));
 
     await message.reply({ embeds: [embed] });
