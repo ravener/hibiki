@@ -1,7 +1,7 @@
 import * as osu from 'osu-api-v2-js';
 
-const CLIENT_ID = parseInt(process.env.CLIENT_ID!);
-const CLIENT_SECRET = process.env.CLIENT_SECRET!;
+const CLIENT_ID = parseInt(process.env.OSU_CLIENT_ID!);
+const CLIENT_SECRET = process.env.OSU_CLIENT_SECRET!;
 const USER_AGENT = 'https://github.com/ravener/hibiki';
 const TOKEN_URL = 'https://osu.ppy.sh/oauth/token';
 
