@@ -1,9 +1,11 @@
+import * as osu from 'osu-api-v2-js';
 
-const CLIENT_ID = process.env.CLIENT_ID!;
+const CLIENT_ID = parseInt(process.env.CLIENT_ID!);
 const CLIENT_SECRET = process.env.CLIENT_SECRET!;
 const USER_AGENT = 'https://github.com/ravener/hibiki';
 const TOKEN_URL = 'https://osu.ppy.sh/oauth/token';
 
+export const api = new osu.API(CLIENT_ID, CLIENT_SECRET);
 
 interface Token {
     expires_in: number;
@@ -26,7 +28,7 @@ async function fetchToken() {
     });
 
     const body = new URLSearchParams({
-        client_id: CLIENT_ID,
+        client_id: CLIENT_ID.toString(),
         client_secret: CLIENT_SECRET,
         grant_type: 'client_credentials',
         scope: 'public'
