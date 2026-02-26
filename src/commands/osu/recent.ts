@@ -23,7 +23,7 @@ export async function run(message: Message, args: string[]) {
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
         .setTitle(score.beatmapset.title)
-        .setImage(score.beatmapset.covers.card)
+        .setThumbnail(score.beatmapset.covers.cover)
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
         .setURL(`https://osu.ppy.sh/b/${score.beatmapset.id}`)
         .setDescription(`▸ ${RankingEmojis[score.rank as keyof typeof RankingEmojis]}`);
