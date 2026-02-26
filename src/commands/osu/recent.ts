@@ -26,7 +26,9 @@ export async function run(message: Message, args: string[]) {
         .setThumbnail(`https://b.ppy.sh/thumb/${score.beatmapset.id}l.jpg`)
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
         .setURL(`https://osu.ppy.sh/b/${score.beatmapset.id}`)
-        .setDescription(`▸ ${RankingEmojis[score.rank as keyof typeof RankingEmojis]}`);
+        .setDescription([
+            `▸ ${RankingEmojis[score.rank as keyof typeof RankingEmojis]} ▸ ${score.pp} pp ▸ ${score.accuracy}%`,
+        ].join('\n'));
 
     await message.reply({ embeds: [embed] });
 }
