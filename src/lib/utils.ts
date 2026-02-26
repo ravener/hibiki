@@ -13,9 +13,23 @@ export function link(name: string, url: string): string {
     return `[${name}](${url})`;
 }
 
+export function parseUser(mention: string) {
+    const match = /<@!?(\d{17,})>/.exec(mention);
+    if (!match) return null;
+    return match[1];
+}
+
 export async function getOsuUser(message: Message, arg: string | undefined) {
     try {
         if (arg) {
+            const match = parseUser(arg);
+            if (match) {
+                const config = await users.get(message.author.id);
+                if (config && config.osuId) {
+                    const user = await api.getUser(config.osuId);
+                    return user;
+                }
+            }
             const id = parseInt(arg);
             const user = await api.getUser(!isNaN(id) ? id : arg);
             return user;
