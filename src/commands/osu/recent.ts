@@ -25,12 +25,12 @@ export async function run(message: Message, args: string[]) {
 
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
-        .setTitle(score.beatmapset.title)
+        .setTitle(`${score.beatmapset.title} [${score.beatmap.version}] [${score.beatmap.difficulty_rating}★]`)
         .setThumbnail(`https://b.ppy.sh/thumb/${score.beatmapset.id}l.jpg`)
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
-        .setURL(`https://osu.ppy.sh/b/${score.beatmapset.id}`)
+        .setURL(score.beatmap.url)
         .setDescription([
-            `${rankEmote} +**${mods}**    **${score.total_score.toLocaleString()}**    **${score.accuracy * 100}%**`,
+            `${rankEmote} +**${mods}** • **${score.total_score.toLocaleString()}** • **${score.accuracy * 100}%**`,
             `**${score.pp?.toLocaleString()}PP** • **${score.max_combo.toLocaleString()}x** • ${score.statistics.miss} ${Emojis.Miss}`,
         ].join('\n'));
 
