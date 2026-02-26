@@ -33,6 +33,7 @@
     "@fluxerjs/core": "^1.2.2",
     "@keyv/sqlite": "^4.0.8",
     "dotenv": "^17.3.1",
-    "keyv": "^5.6.0"
+    "keyv": "^5.6.0",
+    "osu-api-v2-js": "^3.0.0"
   }
 }

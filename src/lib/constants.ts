@@ -8,3 +8,9 @@ export const enum Colors {
 export const enum Channels {
     Errors = '1475114783090008064'
 }
+
+export const enum Links {
+    Invite = '',
+    Community = 'https://fluxer.gg/VPvUEd0S',
+    GitHub = 'https://github.com/ravener/hibiki'
+}
