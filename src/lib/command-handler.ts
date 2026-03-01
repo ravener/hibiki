@@ -52,6 +52,7 @@ export async function handleCommands(message: Message) {
     const matchedPrefix = await matchPrefix(message, prefix);
     if (!matchedPrefix) return;
 
+    // TODO: Flags parsing
     const args = message.content.slice(matchedPrefix.length).trim().split(/\s+/);
     const alias = args.shift()?.toLowerCase();
     const command = alias ? getCommand(alias) : undefined;

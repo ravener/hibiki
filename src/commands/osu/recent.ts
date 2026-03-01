@@ -4,6 +4,8 @@ import { api } from '#lib/osu';
 import { getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 
+// TODO: Aliases like >rm >rc >rs
+
 export const config: CommandConfig = {
     description: 'Get user\'s most recent gameplay. Mode defaults to set default gamemode.'
 };
