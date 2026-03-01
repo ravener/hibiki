@@ -20,6 +20,7 @@ export async function run(message: Message, args: string[]) {
         return;
     }
 
+    const beatmap = await api.getBeatmap(score.beatmap_id);
     const mods = score.mods.map(mod => mod.acronym).join('');
     const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
 
@@ -31,7 +32,7 @@ export async function run(message: Message, args: string[]) {
         .setURL(score.beatmap.url)
         .setDescription([
             `${rankEmote} +**${mods}** • **${score.total_score.toLocaleString()}** • **${(score.accuracy * 100).toFixed(2)}%** • <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`,
-            `**${score.pp?.toFixed(2)}PP** • **${score.max_combo.toLocaleString()}x** • ${score.statistics.miss} ${Emojis.Miss}`,
+            `**${score.pp?.toFixed(2)}PP** • **${score.max_combo.toLocaleString()}x**/${beatmap.max_combo.toLocaleString()}x • ${score.statistics.miss} ${Emojis.Miss}`,
         ].join('\n'));
 
     await message.reply({ embeds: [embed] });
