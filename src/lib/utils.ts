@@ -4,6 +4,20 @@ import { APIError } from "osu-api-v2-js";
 import { users } from "./db.js";
 
 /**
+ * Converts a string to proper case.
+ * Proper case capitalizes the first letter of each word and converts the rest to lowercase.
+ * @param str - The string to convert.
+ * @returns The string in proper case.
+ */
+export function toProperCase(str: string): string {
+    return str.replace(
+        /([^\W_]+[^\s-]*) */g,
+        (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase()
+    );
+}
+
+
+/**
  * Quickly transform a url into a markdown link
  * @param name URL name
  * @param url URL

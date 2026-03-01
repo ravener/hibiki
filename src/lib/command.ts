@@ -6,6 +6,7 @@ export interface CommandConfig {
     description?: string;
     ownerOnly?: boolean;
     guildOnly?: boolean;
+    category?: string;
 }
 
 export type CommandRun = (message: Message, args: string[]) => Promise<void>;

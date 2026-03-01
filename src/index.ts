@@ -1,13 +1,12 @@
 import 'dotenv/config';
 
 import type { Command } from '#lib/command';
+import { aliases, commands, handleCommands } from '#lib/command-handler';
+import { toProperCase } from '#lib/utils';
 import { Client, Events, Message } from '@fluxerjs/core';
 import { readdir } from 'node:fs/promises';
-import { dirname, join, parse } from 'node:path';
+import { basename, dirname, join, parse } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { OwnerId } from '#lib/constants';
-import { getPrefix } from '#lib/db';
-import { aliases, commands, handleCommands } from '#lib/command-handler';
 
 const client = new Client({ intents: 0 });
 
@@ -19,15 +18,16 @@ async function loadCommands() {
         if (!file.endsWith('.js')) continue;
 
         const { config, run } = await import(join(baseDir, 'commands', file)) as Partial<Command>;
-        const { name } = parse(file);
+        const { name, dir } = parse(file);
 
         if (!run) {
             console.warn(`${file} does not export a run function.`);
             continue;
         }
 
+        const category = toProperCase(basename(dir));
         const command: Command = {
-            config: { name, ...config },
+            config: { name, category, ...config },
             run
         };
 
