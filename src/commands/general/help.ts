@@ -29,7 +29,10 @@ export async function run(message: Message, args: string[]) {
     }
 
     const lines = [];
-    for (const [category, commands] of Object.entries(categories)) {
+    // Sort the categories alphabetically.
+    const keys = Object.keys(categories).sort();
+    for (const category of keys) {
+        const commands = categories[category]!;
         lines.push(`**${category}**: ${commands.map(c => `\`${c}\``).join(', ')}`);
     }
 
