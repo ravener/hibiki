@@ -8,7 +8,16 @@ import { readdir } from 'node:fs/promises';
 import { basename, dirname, join, parse } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const client = new Client({ intents: 0 });
+const client = new Client({
+    intents: 0,
+    presence: {
+        custom_status: {
+            emoji_id: '1476543520190574790',
+            text: 'Clicking circles | >help'
+        },
+        status: 'online'
+    }
+});
 
 async function loadCommands() {
     const baseDir = fileURLToPath(dirname(import.meta.url));
