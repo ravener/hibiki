@@ -33,7 +33,7 @@ export async function run(message: Message, args: string[]) {
     const keys = Object.keys(categories).sort();
     for (const category of keys) {
         const commands = categories[category]!;
-        lines.push(`**${category}**: ${commands.map(c => `\`${c}\``).join(', ')}`);
+        lines.push(`**${category}** - ${commands.map(c => `\`${c}\``).join(', ')}`);
     }
 
     embed.setDescription(lines.join('\n'));
