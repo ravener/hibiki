@@ -41,8 +41,8 @@ export async function run(message: Message, args: string[]) {
             `▸ **Bancho Rank:** #${user.statistics.global_rank?.toLocaleString()} (${user.country_code}#${user.statistics.country_rank?.toLocaleString()})`,
             `▸ **Peak Rank:** #${user.rank_highest?.rank.toLocaleString()} achieved <t:${(user.rank_highest!.updated_at.getTime() / 1000).toFixed()}:R>`,
             `▸ **Level:** ${user.statistics.level.current} + ${user.statistics.level.progress}%${team}`,
-            `▸ **PP:** ${user.statistics.pp?.toLocaleString()} **Accuracy:** ${user.statistics.accuracy.toFixed(2)}%`,
-            `▸ **Playcount:** ${user.statistics.play_count.toLocaleString()} (${(user.statistics.play_time! / 60 / 60).toFixed(2)} hours)`,
+            `▸ **PP:** ${user.statistics.pp?.toLocaleString()} **Accuracy:** ${(user.statistics.accuracy * 100).toFixed(2)}%`,
+            `▸ **Playcount:** ${user.statistics.play_count.toLocaleString()} (${(user.statistics.play_time! / 60 / 60).toFixed()} hours)`,
             `▸ **Ranks:** ${ranks.join(' ')}`
         ].join('\n'));
 
