@@ -34,7 +34,8 @@ export async function run(message: Message, args: string[]) {
         .setColor(Colors.Primary)
         .setAuthor({
             name: `${gameMode[user.playmode]} Profile for ${user.username}`,
-            iconURL: `https://osuflags.omkserver.nl/${user.country_code}.png`
+            iconURL: `https://osuflags.omkserver.nl/${user.country_code}.png`,
+            url: `https://osu.ppy.sh/users/${user.id}`
         })
         .setThumbnail(user.avatar_url)
         .setDescription([
