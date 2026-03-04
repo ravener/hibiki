@@ -1,20 +1,30 @@
-import { type CommandConfig } from '#lib/command';
+import { type CommandConfig, type CommandContext } from '#lib/command';
 import { Colors, Emojis, RankingEmojis } from '#lib/constants';
 import { api } from '#lib/osu';
 import { getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
+import { Ruleset } from 'osu-api-v2-js';
 
 // TODO: Aliases like >rm >rc >rs
 
 export const config: CommandConfig = {
-    description: 'Get user\'s most recent gameplay. Mode defaults to set default gamemode.'
+    description: 'Get user\'s most recent gameplay. Mode defaults to set default gamemode.',
+    aliases: ['r', 'rm', 'rc', 'rs', 'rt']
 };
 
-export async function run(message: Message, args: string[]) {
+const aliasToRuleset: Record<string, Ruleset> = {
+    'rm': Ruleset.mania,
+    'rc': Ruleset.fruits,
+    'rs': Ruleset.osu,
+    'rt': Ruleset.taiko
+};
+
+export async function run(message: Message, args: string[], ctx: CommandContext) {
     const user = await getOsuUser(message, args[0]);
     if (!user) return;
 
-    const scores = await api.getUserScores(user.id, 'recent');
+    const ruleset = aliasToRuleset[ctx.alias];
+    const scores = await api.getUserScores(user.id, 'recent', ruleset);
     const score = scores[0];
 
     if (!score) {

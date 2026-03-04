@@ -1,5 +1,5 @@
 import { EmbedBuilder, Message } from "@fluxerjs/core";
-import type { Command } from "./command.js";
+import type { Command, CommandContext } from "./command.js";
 import { Channels, Colors, OwnerId } from "./constants.js";
 import { guilds } from "./db.js";
 
@@ -54,8 +54,8 @@ export async function handleCommands(message: Message) {
 
     // TODO: Flags parsing
     const args = message.content.slice(matchedPrefix.length).trim().split(/\s+/);
-    const alias = args.shift()?.toLowerCase();
-    const command = alias ? getCommand(alias) : undefined;
+    const alias = args.shift()?.toLowerCase()!;
+    const command = getCommand(alias);
 
     if (!command) return;
 
@@ -68,8 +68,10 @@ export async function handleCommands(message: Message) {
         return;
     }
 
+    const ctx: CommandContext = { alias, args };
+
     try {
-        await command.run(message, args);
+        await command.run(message, args, ctx);
     } catch (err) {
         if (typeof err === 'string') {
             await message.reply(err);

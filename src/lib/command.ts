@@ -9,7 +9,19 @@ export interface CommandConfig {
     category?: string;
 }
 
-export type CommandRun = (message: Message, args: string[]) => Promise<void>;
+export type CommandRun = (message: Message, args: string[], ctx: CommandContext) => Promise<void>;
+
+export interface CommandContext {
+    /**
+     * The arguments passed to this command.
+     */
+    args: string[];
+
+    /**
+     * The alias that was used to invoke this command.
+     */
+    alias: string;
+}
 
 export interface Command {
     config: CommandConfig;
