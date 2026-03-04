@@ -24,7 +24,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     if (!user) return;
 
     const ruleset = aliasToRuleset[ctx.alias];
-    const scores = await api.getUserScores(user.id, 'recent', ruleset);
+    const scores = await api.getUserScores(user.id, 'recent', ruleset, { fails: true });
     const score = scores[0];
 
     if (!score) {
