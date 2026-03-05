@@ -32,7 +32,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@fluxerjs/core": "^1.2.2",
+    "@fluxerjs/core": "^1.2.3",
     "@keyv/sqlite": "^4.0.8",
     "dotenv": "^17.3.1",
     "keyv": "^5.6.0",
