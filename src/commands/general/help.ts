@@ -27,7 +27,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
             .setDescription([
                 `\`\`\`\n${ctx.guildPrefix}${command.config.name}\n\`\`\``,
                 `**${command.config.description}**`,
-                `${command.config.extendedHelp}`,
+                `${command.config.extendedHelp ?? ''}`,
                 '',
                 `• **Aliases: **${command.config.aliases?.map(a => `\`${a}\``).join(', ') || 'None'}`,
             ].join('\n'));
