@@ -68,7 +68,7 @@ export async function handleCommands(message: Message) {
         return;
     }
 
-    const ctx: CommandContext = { alias, args };
+    const ctx: CommandContext = { alias, args, guildPrefix: prefix };
 
     try {
         await command.run(message, args, ctx);

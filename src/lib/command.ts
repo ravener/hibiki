@@ -21,6 +21,11 @@ export interface CommandContext {
      * The alias that was used to invoke this command.
      */
     alias: string;
+
+    /**
+     * The resolved prefix for the current guild.
+     */
+    guildPrefix: string;
 }
 
 export interface Command {
