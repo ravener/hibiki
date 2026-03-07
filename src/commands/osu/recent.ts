@@ -33,7 +33,14 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     }
 
     const beatmap = await api.getBeatmap(score.beatmap_id);
-    const mods = score.mods.map(mod => mod.acronym).join('');
+    const mods = score.mods.map(mod => {
+        if (mod.settings?.speed_change) {
+            return `${mod.acronym}(${mod.settings.speed_change}x)`
+        }
+
+        return mod.acronym;
+    }).join('');
+
     const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
 
     const embed = new EmbedBuilder()
