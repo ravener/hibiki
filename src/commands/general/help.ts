@@ -15,7 +15,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     if (cmdName) {
         const command = getCommand(cmdName);
 
-        if (!command) {
+        if (!command || command.config.category === 'owner') {
             await message.reply(`Command \`${cmdName}\` not found.`);
             return;
         }
@@ -27,6 +27,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
             .setDescription([
                 `\`\`\`\n${ctx.guildPrefix}${command.config.name}\n\`\`\``,
                 `**${command.config.description}**`,
+                `${command.config.extendedHelp}`,
                 '',
                 `• **Aliases: **${command.config.aliases?.map(a => `\`${a}\``).join(', ') || 'None'}`,
             ].join('\n'));

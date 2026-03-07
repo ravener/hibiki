@@ -1,9 +1,10 @@
-import type { Message } from "@fluxerjs/core";
+import type { Message } from '@fluxerjs/core';
 
 export interface CommandConfig {
     name?: string;
     aliases?: string[];
     description?: string;
+    extendedHelp?: string;
     ownerOnly?: boolean;
     guildOnly?: boolean;
     category?: string;

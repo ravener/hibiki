@@ -5,11 +5,10 @@ import { getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
 
-// TODO: Aliases like >rm >rc >rs
-
 export const config: CommandConfig = {
     description: 'Get user\'s most recent gameplay. Mode defaults to set default gamemode.',
-    aliases: ['r', 'rm', 'rc', 'rs', 'rt']
+    aliases: ['r', 'rm', 'rc', 'rs', 'rt'],
+    extendedHelp: 'Use one of the aliases to change the game mode:\n* `>rm` for osu!mania\n* `>rc` for osu!catch\n* `>rs` for osu! standard\n* `>rt` for osu!taiko'
 };
 
 const aliasToRuleset: Record<string, Ruleset> = {
