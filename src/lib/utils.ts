@@ -72,3 +72,24 @@ export async function getOsuUser(message: Message, arg: string | undefined) {
         throw err;
     }
 }
+
+/**
+ * Convert milliseconds into human readable duration string.
+ */
+export function getDuration(time: number): string {
+    if (time < 1000) return `${time} ms`;
+
+    const seconds = Math.floor(time / 1000) % 60;
+    const minutes = Math.floor((time / (1000 * 60)) % 60);
+    const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+    const days = Math.floor((time / (1000 * 60 * 60 * 24)) % 7);
+
+    return [
+        `${days} day${days > 1 ? 's' : ''}`,
+        `${hours} hour${hours > 1 ? 's' : ''}`,
+        `${minutes} minute${minutes > 1 ? 's' : ''}`,
+        `${seconds} second${seconds > 1 ? 's' : ''}`
+    ]
+        .filter((time) => !time.startsWith('0'))
+        .join(', ');
+}
