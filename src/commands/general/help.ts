@@ -39,7 +39,8 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
         .setAuthor({ name: user!.username, iconURL: user!.displayAvatarURL() })
-        .setTitle('Hibiki - Commands');
+        .setTitle('Hibiki - Commands')
+        .setFooter({ text: `Use ${ctx.guildPrefix}help <command> to get more information about a command.`});
 
     const categories: Record<string, string[]> = {};
 
