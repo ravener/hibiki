@@ -1,6 +1,6 @@
 import type { CommandConfig } from "#lib/command";
 import { guilds } from "#lib/db";
-import type { Message } from "@fluxerjs/core";
+import { PermissionFlags, type Message } from "@fluxerjs/core";
 
 export const config: CommandConfig = {
     description: 'Configure the server\'s prefix',
@@ -12,6 +12,12 @@ export async function run(message: Message, args: string[]) {
 
     if (!args.length) {
         await message.reply(`The current prefix is \`${config?.prefix ?? '>'}\``);
+        return;
+    }
+
+    const member = await message.guild?.members.resolve(message.author.id);
+    if (!member?.permissions.has(PermissionFlags.ManageGuild)) {
+        await message.reply('You need the Manage Community permission to change the prefix.');
         return;
     }
 
