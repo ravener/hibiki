@@ -21,7 +21,7 @@ export async function run(message: Message, args: string[]) {
     } as const;
 
     // TODO: Other game modes
-    const topPlays = await api.getUserScores(user.id, 'best', Ruleset.osu);
+    const topPlays = await api.getUserScores(user.id, 'best', Ruleset.osu, undefined, { limit: 10 });
 
     if (!topPlays.length) {
         await message.reply(`No top plays found for user **${user.username}**`);
