@@ -33,10 +33,10 @@ export async function run(message: Message, args: string[]) {
     const text = [];
     for (const score of topPlays.slice(0, 10)) {
         const diff = await calculateDifficulty(score.beatmap_id, score);
-        const beatmapTitle = `[${score.beatmapset.title} [${score.beatmap.version}]](${score.beatmap.url})`;
+        const beatmapTitle = `[**${score.beatmapset.title} [${score.beatmap.version}]**](${score.beatmap.url})`;
         const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
         const mods = formatMods(score.mods);
-        text.push(`**#${++index}** ${beatmapTitle} [${diff.stars.toFixed(2)}★]\n${rankEmote} **${score.pp?.toFixed(2)}pp** (${(score.accuracy * 100).toFixed(2)}) [**${score.max_combo}x**/${diff.maxCombo}] **+${mods || 'NM'}** <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`);
+        text.push(`**#${++index}** ${beatmapTitle} [${diff.stars.toFixed(2)}★]\n${rankEmote} **${score.pp?.toFixed(2)}pp** (${(score.accuracy * 100).toFixed(2)}%) [${score.max_combo}x/${diff.maxCombo}x] **+${mods || 'NM'}** <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`);
     }
 
     const embed = new EmbedBuilder()
