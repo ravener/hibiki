@@ -1,6 +1,6 @@
 import { type CommandConfig } from '#lib/command';
 import { Colors, RankingEmojis } from '#lib/constants';
-import { getOsuUser } from '#lib/utils';
+import { formatDecimal, getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 
 // TODO: Aliases like >osu >mania >catch >taiko
@@ -30,6 +30,8 @@ export async function run(message: Message, args: string[]) {
         `${RankingEmojis.A} \`${user.statistics.grade_counts.a.toLocaleString()}\``
     ];
 
+    const accuracy = formatDecimal(user.statistics.accuracy * 100);
+
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
         .setAuthor({
@@ -42,7 +44,7 @@ export async function run(message: Message, args: string[]) {
             `▸ **Bancho Rank:** #${user.statistics.global_rank?.toLocaleString()} (${user.country_code}#${user.statistics.country_rank?.toLocaleString()})`,
             `▸ **Peak Rank:** #${user.rank_highest?.rank.toLocaleString()} achieved <t:${(user.rank_highest!.updated_at.getTime() / 1000).toFixed()}:R>`,
             `▸ **Level:** ${user.statistics.level.current} + ${user.statistics.level.progress}%${team}`,
-            `▸ **PP:** ${user.statistics.pp?.toLocaleString()} **Accuracy:** ${(user.statistics.accuracy * 100).toFixed(2)}%`,
+            `▸ **PP:** ${user.statistics.pp?.toLocaleString()} **Accuracy:** ${accuracy}%`,
             `▸ **Playcount:** ${user.statistics.play_count.toLocaleString()} (${(user.statistics.play_time! / 60 / 60).toFixed()} hours)`,
             `▸ **Ranks:** ${ranks.join(' ')}`
         ].join('\n'));

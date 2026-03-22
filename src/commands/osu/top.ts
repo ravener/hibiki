@@ -1,7 +1,7 @@
 import { type CommandConfig } from '#lib/command';
 import { Colors, RankingEmojis } from '#lib/constants';
 import { api, calculateDifficulty, formatMods } from '#lib/osu';
-import { getOsuUser } from '#lib/utils';
+import { formatDecimal, getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
 
@@ -36,7 +36,10 @@ export async function run(message: Message, args: string[]) {
         const beatmapTitle = `[**${score.beatmapset.title} [${score.beatmap.version}]**](${score.beatmap.url})`;
         const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
         const mods = formatMods(score.mods);
-        text.push(`**#${++index}** ${beatmapTitle} [${diff.stars.toFixed(2)}★]\n${rankEmote} **${score.pp?.toFixed(2)}pp** (${(score.accuracy * 100).toFixed(2)}%) [${score.max_combo}x/${diff.maxCombo}x] **+${mods || 'NM'}** <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`);
+        const accuracy = formatDecimal(score.accuracy * 100);
+        const pp = formatDecimal(score.pp!);
+        const stars = formatDecimal(diff.stars);
+        text.push(`**#${++index}** ${beatmapTitle} [${stars}★]\n${rankEmote} **${pp}pp** (${accuracy}%) [${score.max_combo}x/${diff.maxCombo}x] **+${mods || 'NM'}** <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`);
     }
 
     const embed = new EmbedBuilder()

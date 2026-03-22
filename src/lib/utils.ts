@@ -93,3 +93,13 @@ export function getDuration(time: number): string {
         .filter((time) => !time.startsWith('0'))
         .join(', ');
 }
+
+/**
+ * Formats a potentially decimal number, allowing up to 2 decimal points
+ * but decimals aren't visible if the number is a whole number.
+ * @param num The number to format
+ * @returns Formatted number
+ */
+export function formatDecimal(num: number): string {
+    return Number.isInteger(num) ? num.toString() : num.toFixed(2);
+}

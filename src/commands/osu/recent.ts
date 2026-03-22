@@ -1,7 +1,7 @@
 import { type CommandConfig, type CommandContext } from '#lib/command';
 import { Colors, Emojis, RankingEmojis } from '#lib/constants';
 import { api, formatMods } from '#lib/osu';
-import { getOsuUser } from '#lib/utils';
+import { formatDecimal, getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
 
@@ -17,7 +17,6 @@ const aliasToRuleset: Record<string, Ruleset> = {
     'rs': Ruleset.osu,
     'rt': Ruleset.taiko
 };
-
 
 
 export async function run(message: Message, args: string[], ctx: CommandContext) {
@@ -37,6 +36,8 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     const mods = formatMods(score.mods);
 
     const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
+    const accuracy = formatDecimal(score.accuracy * 100);
+    const pp = score.pp ? formatDecimal(score.pp) : '0';
 
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
@@ -45,8 +46,8 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
         .setURL(score.beatmap.url)
         .setDescription([
-            `${rankEmote} +**${mods.length ? mods : 'NM'}** • **${score.total_score.toLocaleString()}** • **${(score.accuracy * 100).toFixed(2)}%** • <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`,
-            `**${score.pp?.toFixed(2)}PP** • **${score.max_combo.toLocaleString()}x**/${beatmap.max_combo.toLocaleString()}x • ${score.statistics.miss} ${Emojis.Miss}`,
+            `${rankEmote} +**${mods.length ? mods : 'NM'}** • **${score.total_score.toLocaleString()}** • **${accuracy}%** • <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`,
+            `**${pp}PP** • **${score.max_combo.toLocaleString()}x**/${beatmap.max_combo.toLocaleString()}x • ${score.statistics.miss} ${Emojis.Miss}`,
         ].join('\n'));
 
     await message.reply({ embeds: [embed] });
