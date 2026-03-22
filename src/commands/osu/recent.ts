@@ -1,6 +1,6 @@
 import { type CommandConfig, type CommandContext } from '#lib/command';
 import { Colors, Emojis, RankingEmojis } from '#lib/constants';
-import { api } from '#lib/osu';
+import { api, formatMods } from '#lib/osu';
 import { getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
@@ -18,6 +18,8 @@ const aliasToRuleset: Record<string, Ruleset> = {
     'rt': Ruleset.taiko
 };
 
+
+
 export async function run(message: Message, args: string[], ctx: CommandContext) {
     const user = await getOsuUser(message, args[0]);
     if (!user) return;
@@ -32,13 +34,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     }
 
     const beatmap = await api.getBeatmap(score.beatmap_id);
-    const mods = score.mods.map(mod => {
-        if (mod.settings?.speed_change) {
-            return `${mod.acronym}(${mod.settings.speed_change}x)`
-        }
-
-        return mod.acronym;
-    }).join('');
+    const mods = formatMods(score.mods);
 
     const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
 

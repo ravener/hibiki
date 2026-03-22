@@ -23,6 +23,9 @@ importers:
       osu-api-v2-js:
         specifier: ^3.0.0
         version: 3.0.0
+      rosu-pp-js:
+        specifier: ^3.1.0
+        version: 3.1.0
     devDependencies:
       '@types/node':
         specifier: ^25.3.0
@@ -432,6 +435,9 @@ packages:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
+
+  rosu-pp-js@3.1.0:
+    resolution: {integrity: sha512-5YR/ar+XKLvAJAEvPhfEeBunDAY/qPFoey9b9ykvbNDR1K6FO77Mj7VblPpVs9O5TFRwecVSvOLFHMaY63l3YA==}
 
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
@@ -1052,6 +1058,8 @@ snapshots:
     dependencies:
       glob: 7.2.3
     optional: true
+
+  rosu-pp-js@3.1.0: {}
 
   safe-buffer@5.2.1: {}
 
