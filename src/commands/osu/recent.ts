@@ -1,6 +1,6 @@
 import { type CommandConfig, type CommandContext } from '#lib/command';
 import { Colors, Emojis, RankingEmojis } from '#lib/constants';
-import { api, formatMods } from '#lib/osu';
+import { api, formatGameMode, formatMods } from '#lib/osu';
 import { formatDecimal, getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
@@ -39,6 +39,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     const accuracy = formatDecimal(score.accuracy * 100);
     const pp = score.pp ? formatDecimal(score.pp) : '0';
 
+    const content = `**Recent ${formatGameMode(score.ruleset_id)} for ${user.username}:**`;
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
         .setTitle(`${score.beatmapset.title} [${score.beatmap.version}] [${score.beatmap.difficulty_rating.toFixed(2)}★]`)
@@ -50,5 +51,5 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
             `**${pp}PP** • **${score.max_combo.toLocaleString()}x**/${beatmap.max_combo.toLocaleString()}x • ${score.statistics.miss} ${Emojis.Miss}`,
         ].join('\n'));
 
-    await message.reply({ embeds: [embed] });
+    await message.reply({ content, embeds: [embed] });
 }
