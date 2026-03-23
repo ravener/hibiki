@@ -1,5 +1,5 @@
 import { type CommandConfig, type CommandContext } from '#lib/command';
-import { Colors, RankingEmojis } from '#lib/constants';
+import { Colors, Emojis, RankingEmojis } from '#lib/constants';
 import { api, calculateDifficulty, formatGameMode, formatMods } from '#lib/osu';
 import { formatDecimal, getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
@@ -51,7 +51,8 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
         const stars = formatDecimal(diff.stars);
         const title = `**#${++index}** ${beatmapTitle} [${stars}★]`;
         const date = `<t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`;
-        let text = `${title}\n${rankEmote} **${pp}pp** (${accuracy}%) [${score.max_combo}x/${diff.maxCombo}x] **+${mods || 'NM'}** ${date}`;
+        const miss = score.ruleset_id !== Ruleset.mania && score.statistics.miss ? ` ${score.statistics.miss} ${Emojis.Miss}` : '';
+        let text = `${title}\n${rankEmote} **${pp}pp** (${accuracy}%) [${score.max_combo}x/${diff.maxCombo}x]${miss} **+${mods || 'NM'}** ${date}`;
 
         if (score.ruleset_id === Ruleset.mania) {
             text += `\n${score.total_score.toLocaleString()} [${score.statistics.perfect ?? 0}/${score.statistics.great ?? 0}/${score.statistics.good ?? 0}/${score.statistics.ok ?? 0}/${score.statistics.meh ?? 0}/${score.statistics.miss ?? 0}]`;
