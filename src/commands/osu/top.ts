@@ -55,7 +55,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
         let text = `${title}\n${rankEmote} **${pp}pp** (${accuracy}%) [${score.max_combo}x/${diff.maxCombo}x]${miss} **+${mods || 'NM'}** ${date}`;
 
         if (score.ruleset_id === Ruleset.mania) {
-            const ratio = score.statistics.perfect && score.statistics.great ? `${formatDecimal(score.statistics.perfect / score.statistics.great)}:1` : '1:1';
+            const ratio = score.statistics.great ? `${formatDecimal((score.statistics.perfect ?? 0) / score.statistics.great)}:1` : '∞:1';
             text += `\n${score.total_score.toLocaleString()} [${score.statistics.perfect ?? 0}/${score.statistics.great ?? 0}/${score.statistics.good ?? 0}/${score.statistics.ok ?? 0}/${score.statistics.meh ?? 0}/${score.statistics.miss ?? 0}] ${ratio}`;
         }
 

@@ -2,6 +2,7 @@ import * as osu from 'osu-api-v2-js';
 import { Beatmap, Difficulty, DifficultyAttributes, GameMode, Performance } from 'rosu-pp-js';
 import { BeatmapCache } from './beatmap-cache.js';
 import { join } from 'node:path';
+import { setFlagsFromString } from 'node:v8';
 
 const CLIENT_ID = parseInt(process.env.OSU_CLIENT_ID!);
 const CLIENT_SECRET = process.env.OSU_CLIENT_SECRET!;
@@ -193,6 +194,31 @@ function calculateFC(beatmap: Beatmap, attrs: DifficultyAttributes, score: osu.S
     return null;
 }
 
+function totalHits(score: osu.Score) {
+    const count300s = score.statistics.great ?? 0;
+    const count100s = (score.ruleset_id === osu.Ruleset.fruits ? score.statistics.large_tick_hit : score.statistics.ok) ?? 0;
+    const countMiss = score.statistics.miss ?? 0;
+
+    let amount = count300s + count100s + countMiss;
+
+    if (score.ruleset_id !== osu.Ruleset.taiko) {
+        const count50s = (score.ruleset_id === osu.Ruleset.fruits ? score.statistics.small_tick_hit : score.statistics.meh) ?? 0;
+        amount += count50s;
+
+        if (score.ruleset_id !== osu.Ruleset.osu) {
+            const katu = (score.ruleset_id === osu.Ruleset.fruits ? score.statistics.small_tick_miss : score.statistics.good) ?? 0;
+            amount += katu;
+
+            if (score.ruleset_id !== osu.Ruleset.fruits) {
+                const geki = score.statistics.perfect ?? 0;
+                amount += geki;
+            }
+        }
+    }
+
+    return amount;
+}
+
 // TODO
 export async function calculateBeatmap(id: number, score: osu.Score) {
     const beatmap = await fetchBeatmap(id).then(parseMap);
@@ -221,14 +247,15 @@ export async function calculateBeatmap(id: number, score: osu.Score) {
         n50: score.statistics.meh ?? 0,
         nGeki: score.statistics.perfect ?? 0,
         nKatu: score.statistics.good ?? 0,
-        combo: score.max_combo
+        combo: score.max_combo,
+        passedObjects: totalHits(score)
     }).calculate(maxAttrs);
 
     const maxCombo = diffAttrs.maxCombo;
     const stars = diffAttrs.stars;
     const maxPP = maxAttrs.pp;
     const currentPP = currentAttrs.pp;
-    const fcPP = isFC(score, diffAttrs.maxCombo) ? calculateFC(beatmap, diffAttrs, score) : null;
+    const fcPP = !isFC(score, diffAttrs.maxCombo) ? calculateFC(beatmap, diffAttrs, score) : null;
 
     // Free up memory
     currentAttrs.free();
