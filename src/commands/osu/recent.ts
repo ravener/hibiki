@@ -1,6 +1,6 @@
 import { type CommandConfig, type CommandContext } from '#lib/command';
 import { Colors, Emojis, RankingEmojis } from '#lib/constants';
-import { api, formatGameMode, formatMods } from '#lib/osu';
+import { api, calculateBeatmap, formatGameMode, formatMods } from '#lib/osu';
 import { formatDecimal, getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
@@ -32,23 +32,23 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
         return;
     }
 
-    const beatmap = await api.getBeatmap(score.beatmap_id);
+    const calc = await calculateBeatmap(score.beatmap_id, score);
     const mods = formatMods(score.mods);
-
     const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
     const accuracy = formatDecimal(score.accuracy * 100);
     const pp = score.pp ? formatDecimal(score.pp) : '0';
+    const fcPP = calc.fcPP ? ` ~~(${formatDecimal(calc.fcPP)})~~` : '';
 
     const content = `Recent **${formatGameMode(score.ruleset_id)}** play for **${user.username}**`;
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
-        .setTitle(`${score.beatmapset.title} [${score.beatmap.version}] [${score.beatmap.difficulty_rating.toFixed(2)}★]`)
+        .setTitle(`${score.beatmapset.title} [${score.beatmap.version}] [${formatDecimal(calc.stars)}★]`)
         .setThumbnail(`https://b.ppy.sh/thumb/${score.beatmapset.id}l.jpg`)
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
         .setURL(score.beatmap.url)
         .setDescription([
             `${rankEmote} +**${mods.length ? mods : 'NM'}** • **${score.total_score.toLocaleString()}** • **${accuracy}%** • <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`,
-            `**${pp}PP** • **${score.max_combo.toLocaleString()}x**/${beatmap.max_combo.toLocaleString()}x • ${score.statistics.miss} ${Emojis.Miss}`,
+            `**${pp ?? formatDecimal(calc.currentPP)}**/${formatDecimal(calc.maxPP)}PP${fcPP} • **${score.max_combo.toLocaleString()}x**/${calc.maxCombo.toLocaleString()}x • ${score.statistics.miss} ${Emojis.Miss}`,
         ].join('\n'));
 
     await message.reply({ content, embeds: [embed] });
