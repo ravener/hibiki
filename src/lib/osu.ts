@@ -93,3 +93,12 @@ export async function calculateBeatmap(id: number, score: osu.Score) {
     return {};
 }
 
+
+export function formatGameMode(ruleset: osu.Ruleset) {
+    switch (ruleset) {
+        case osu.Ruleset.osu: return 'osu! Standard';
+        case osu.Ruleset.mania: return 'osu!mania';
+        case osu.Ruleset.fruits: return 'osu!catch';
+        case osu.Ruleset.taiko: return 'osu!taiko';
+    }
+}

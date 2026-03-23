@@ -1,6 +1,6 @@
 import { type CommandConfig, type CommandContext } from '#lib/command';
 import { Colors, RankingEmojis } from '#lib/constants';
-import { api, calculateDifficulty, formatMods } from '#lib/osu';
+import { api, calculateDifficulty, formatGameMode, formatMods } from '#lib/osu';
 import { formatDecimal, getOsuUser } from '#lib/utils';
 import { EmbedBuilder, type Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
@@ -30,13 +30,6 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     const user = await getOsuUser(message, args[0]);
     if (!user) return;
 
-    const gameMode = {
-        'osu': 'osu! Standard',
-        'fruits': 'osu!catch',
-        'mania': 'osu!mania',
-        'taiko': 'osu!taiko'
-    } as const;
-
     const ruleset = aliasToRuleset[ctx.alias];
     const topPlays = await api.getUserScores(user.id, 'best', ruleset, undefined, { limit: 10 });
 
@@ -61,7 +54,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
         let text = `${title}\n${rankEmote} **${pp}pp** (${accuracy}%) [${score.max_combo}x/${diff.maxCombo}x] **+${mods || 'NM'}** ${date}`;
 
         if (score.ruleset_id === Ruleset.mania) {
-            text += `\n${score.total_score.toLocaleString()} [${score.statistics.perfect}/${score.statistics.great}/${score.statistics.good}/${score.statistics.ok}/${score.statistics.meh}/${score.statistics.miss}]`;
+            text += `\n${score.total_score.toLocaleString()} [${score.statistics.perfect ?? 0}/${score.statistics.great ?? 0}/${score.statistics.good ?? 0}/${score.statistics.ok ?? 0}/${score.statistics.meh ?? 0}/${score.statistics.miss ?? 0}]`;
         }
 
         lines.push(text);
@@ -70,7 +63,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
         .setAuthor({
-            name: `Top ${gameMode[user.playmode]} Plays for ${user.username}`,
+            name: `Top ${formatGameMode(ruleset ?? Ruleset[user.playmode])} Plays for ${user.username}`,
             iconURL: `https://osuflags.omkserver.nl/${user.country_code}.png`,
             url: `https://osu.ppy.sh/users/${user.id}`
         })
