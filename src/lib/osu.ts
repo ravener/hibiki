@@ -194,7 +194,7 @@ function calculateFC(beatmap: Beatmap, attrs: DifficultyAttributes, score: osu.S
     return null;
 }
 
-function totalHits(score: osu.Score) {
+export function totalHits(score: osu.Score) {
     const count300s = score.statistics.great ?? 0;
     const count100s = (score.ruleset_id === osu.Ruleset.fruits ? score.statistics.large_tick_hit : score.statistics.ok) ?? 0;
     const countMiss = score.statistics.miss ?? 0;

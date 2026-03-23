@@ -36,8 +36,8 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     const mods = formatMods(score.mods);
     const rankEmote = score.passed ? RankingEmojis[score.rank as keyof typeof RankingEmojis] : RankingEmojis.F;
     const accuracy = formatDecimal(score.accuracy * 100);
-    const pp = score.pp ? formatDecimal(score.pp) : '0';
-    const fcPP = calc.fcPP ? ` ~~(${formatDecimal(calc.fcPP)})~~` : '';
+    const pp = score.pp ? formatDecimal(score.pp) : formatDecimal(calc.currentPP);
+    const fcPP = calc.fcPP ? ` ~~(${formatDecimal(calc.fcPP)}pp)~~` : '';
 
     const content = `Recent **${formatGameMode(score.ruleset_id)}** play for **${user.username}**`;
     const embed = new EmbedBuilder()
@@ -48,7 +48,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
         .setURL(score.beatmap.url)
         .setDescription([
             `${rankEmote} +**${mods.length ? mods : 'NM'}** • **${score.total_score.toLocaleString()}** • **${accuracy}%** • <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`,
-            `**${pp ?? formatDecimal(calc.currentPP)}**/${formatDecimal(calc.maxPP)}PP${fcPP} • **${score.max_combo.toLocaleString()}x**/${calc.maxCombo.toLocaleString()}x • ${score.statistics.miss} ${Emojis.Miss}`,
+            `**${pp}**/${formatDecimal(calc.maxPP)}PP${fcPP} • **${score.max_combo.toLocaleString()}x**/${calc.maxCombo.toLocaleString()}x • ${score.statistics.miss} ${Emojis.Miss}`,
         ].join('\n'));
 
     await message.reply({ content, embeds: [embed] });
