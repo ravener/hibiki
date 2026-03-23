@@ -39,7 +39,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     const accuracy = formatDecimal(score.accuracy * 100);
     const pp = score.pp ? formatDecimal(score.pp) : '0';
 
-    const content = `**Recent ${formatGameMode(score.ruleset_id)} for ${user.username}:**`;
+    const content = `Recent **${formatGameMode(score.ruleset_id)}** play for **${user.username}**`;
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
         .setTitle(`${score.beatmapset.title} [${score.beatmap.version}] [${score.beatmap.difficulty_rating.toFixed(2)}★]`)
