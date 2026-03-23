@@ -77,12 +77,16 @@ export class BeatmapCache {
     async cleanup() {
         const meta = await this.loadMeta();
         const now = Date.now();
+        const stats = { deleted: 0, freed: 0 };
 
         // 1. Remove expired (TTL)
         for (const [id, info] of Object.entries(meta)) {
             if (now - info.lastAccess > TTL) {
                 await unlink(join(this.path, `${id}.osu`)).catch(() => {});
                 delete meta[id];
+
+                stats.deleted++;
+                stats.freed += info.size;
             }
         }
 
@@ -97,10 +101,13 @@ export class BeatmapCache {
                 await unlink(join(this.path, `${id}.osu`)).catch(() => {});
                 totalSize -= info.size;
                 delete meta[id];
+                stats.deleted++;
+                stats.freed += info.size;
                 if (totalSize <= MAX_SIZE) break;
             }
         }
 
         await this.saveMeta();
+        return stats;
     }
 }
