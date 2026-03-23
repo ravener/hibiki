@@ -1,4 +1,4 @@
-import { type CommandConfig } from '#lib/command';
+import { type CommandConfig, type CommandContext } from '#lib/command';
 import { Colors, RankingEmojis } from '#lib/constants';
 import { api, calculateDifficulty, formatMods } from '#lib/osu';
 import { formatDecimal, getOsuUser } from '#lib/utils';
@@ -6,10 +6,27 @@ import { EmbedBuilder, type Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
 
 export const config: CommandConfig = {
-    description: 'View a player\'s top plays.'
+    description: 'View a player\'s top plays.',
+    aliases: [
+        't',
+        'topmania', 'tm',
+        'topcatch', 'tc',
+        'toptaiko', 'tt'
+    ]
 };
 
-export async function run(message: Message, args: string[]) {
+const aliasToRuleset: Record<string, Ruleset> = {
+    't': Ruleset.osu,
+    'topmania': Ruleset.mania,
+    'tm': Ruleset.mania,
+    'topcatch': Ruleset.fruits,
+    'tc': Ruleset.fruits,
+    'toptaiko': Ruleset.taiko,
+    'tt': Ruleset.taiko
+};
+
+
+export async function run(message: Message, args: string[], ctx: CommandContext) {
     const user = await getOsuUser(message, args[0]);
     if (!user) return;
 
@@ -20,8 +37,8 @@ export async function run(message: Message, args: string[]) {
         'taiko': 'osu!taiko'
     } as const;
 
-    // TODO: Other game modes
-    const topPlays = await api.getUserScores(user.id, 'best', Ruleset.osu, undefined, { limit: 10 });
+    const ruleset = aliasToRuleset[ctx.alias];
+    const topPlays = await api.getUserScores(user.id, 'best', ruleset, undefined, { limit: 10 });
 
     if (!topPlays.length) {
         await message.reply(`No top plays found for user **${user.username}**`);
@@ -30,7 +47,7 @@ export async function run(message: Message, args: string[]) {
 
     // TODO: Ability to change pages.
     let index = 0;
-    const text = [];
+    const lines = [];
     for (const score of topPlays.slice(0, 10)) {
         const diff = await calculateDifficulty(score.beatmap_id, score);
         const beatmapTitle = `[**${score.beatmapset.title} [${score.beatmap.version}]**](${score.beatmap.url})`;
@@ -39,7 +56,15 @@ export async function run(message: Message, args: string[]) {
         const accuracy = formatDecimal(score.accuracy * 100);
         const pp = formatDecimal(score.pp!);
         const stars = formatDecimal(diff.stars);
-        text.push(`**#${++index}** ${beatmapTitle} [${stars}★]\n${rankEmote} **${pp}pp** (${accuracy}%) [${score.max_combo}x/${diff.maxCombo}x] **+${mods || 'NM'}** <t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`);
+        const title = `**#${++index}** ${beatmapTitle} [${stars}★]`;
+        const date = `<t:${(score.ended_at.getTime() / 1000).toFixed()}:R>`;
+        let text = `${title}\n${rankEmote} **${pp}pp** (${accuracy}%) [${score.max_combo}x/${diff.maxCombo}x] **+${mods || 'NM'}** ${date}`;
+
+        if (score.ruleset_id === Ruleset.mania) {
+            text += `\n${score.total_score.toLocaleString()} [${score.statistics.perfect}/${score.statistics.great}/${score.statistics.good}/${score.statistics.ok}/${score.statistics.meh}/${score.statistics.miss}]`;
+        }
+
+        lines.push(text);
     }
 
     const embed = new EmbedBuilder()
@@ -50,7 +75,7 @@ export async function run(message: Message, args: string[]) {
             url: `https://osu.ppy.sh/users/${user.id}`
         })
         .setThumbnail(user.avatar_url)
-        .setDescription(text.join('\n'));
+        .setDescription(lines.join('\n'));
 
     await message.reply({ embeds: [embed] });
 }
