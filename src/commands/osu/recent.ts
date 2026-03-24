@@ -43,7 +43,7 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     const content = `Recent **${formatGameMode(score.ruleset_id)}** play for **${user.username}**`;
     const embed = new EmbedBuilder()
         .setColor(Colors.Primary)
-        .setTitle(`${score.beatmapset.title} [${score.beatmap.version}] [${formatDecimal(calc.stars)}★]`)
+        .setTitle(`${score.beatmapset.artist} - ${score.beatmapset.title} [${score.beatmap.version}] [${formatDecimal(calc.stars)}★]`)
         .setThumbnail(`https://b.ppy.sh/thumb/${score.beatmapset.id}l.jpg`)
         .setAuthor({ name: user.username, iconURL: user.avatar_url, url: `https://osu.ppy.sh/users/${user.id}` })
         .setURL(score.beatmap.url)
