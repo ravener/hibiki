@@ -219,7 +219,6 @@ export function totalHits(score: osu.Score) {
     return amount;
 }
 
-// TODO
 export async function calculateBeatmap(id: number, score: osu.Score) {
     const beatmap = await fetchBeatmap(id).then(parseMap);
 
@@ -248,7 +247,7 @@ export async function calculateBeatmap(id: number, score: osu.Score) {
         nGeki: score.statistics.perfect ?? 0,
         nKatu: score.statistics.good ?? 0,
         combo: score.max_combo,
-        passedObjects: totalHits(score)
+        ...(score.rank === 'F' ? { passedObjects: totalHits(score) } : {})
     }).calculate(maxAttrs);
 
     const maxCombo = diffAttrs.maxCombo;
