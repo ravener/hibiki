@@ -1,7 +1,7 @@
-import { EmbedBuilder, Message } from "@fluxerjs/core";
-import type { Command, CommandContext } from "./command.js";
-import { Channels, Colors, OwnerId } from "./constants.js";
-import { guilds } from "./db.js";
+import { EmbedBuilder, Message } from '@fluxerjs/core';
+import type { Command, CommandContext } from './command.js';
+import { Channels, Colors, OwnerId } from './constants.js';
+import { guilds } from './db.js';
 
 export const commands = new Map<string, Command>();
 export const aliases = new Map<string, string>();
@@ -11,9 +11,9 @@ export function getCommand(name: string) {
 }
 
 export async function getPrefix(guildId?: string | null) {
-    if (!guildId) return '>';
+    if (!guildId) return '!';
     const config = await guilds.get(guildId);
-    return config?.prefix || '>';
+    return config?.prefix || '!';
 }
 
 async function matchPrefix(message: Message, prefix: string) {
