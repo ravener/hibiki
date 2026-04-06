@@ -7,6 +7,7 @@ import { Ruleset } from 'osu-api-v2-js';
 
 export const config: CommandConfig = {
     description: 'View a player\'s top plays.',
+    extendedHelp: 'Use the different aliases to change the gamemode shown.',
     aliases: [
         't',
         'topmania', 'tm',
@@ -16,6 +17,7 @@ export const config: CommandConfig = {
 };
 
 const aliasToRuleset: Record<string, Ruleset> = {
+    'top': Ruleset.osu,
     't': Ruleset.osu,
     'topmania': Ruleset.mania,
     'tm': Ruleset.mania,
