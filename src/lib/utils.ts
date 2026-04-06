@@ -1,4 +1,4 @@
-import type { Message } from "@fluxerjs/core";
+import type { Message, User } from "@fluxerjs/core";
 import { api } from "./osu.js";
 import { APIError } from "osu-api-v2-js";
 import { users } from "./db.js";
@@ -117,4 +117,15 @@ export function getDuration(time: number): string {
  */
 export function formatDecimal(num: number): string {
     return Number.isInteger(num) ? num.toString() : num.toFixed(2);
+}
+
+export async function parseMentionOrAuthor(message: Message, value: string | undefined): Promise<User> {
+    if (!value) return message.author;
+    const id = parseUser(value);
+
+    if (id) {
+        return message.client.users.fetch(id);
+    }
+
+    return message.author;
 }
