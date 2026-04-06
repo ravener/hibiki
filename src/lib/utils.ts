@@ -41,9 +41,16 @@ export function parseUser(mention: string) {
     return match[1];
 }
 
+/**
+ * Obtains an osu! user from user input
+ * @param message - The message
+ * @param arg - The user input
+ * @returns osu! user or undefined
+ */
 export async function getOsuUser(message: Message, arg: string | undefined) {
     try {
         if (arg) {
+            // If they mentioned another user (try to find the linked account to that user)
             const match = parseUser(arg);
             if (match) {
                 const user = await getLinkedUser(match);
@@ -52,6 +59,14 @@ export async function getOsuUser(message: Message, arg: string | undefined) {
                 return;
             }
 
+            // If they passed a URL
+            const url = arg.match(/^http(?:s)?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(?:osu|fruits|taiko|mania)(?:\/)?)?/);
+            if (url && url[1]) {
+                const id = parseInt(url[1]);
+                return api.getUser(!isNaN(id) ? id : url[1]);
+            }
+
+            // If they passed an ID or name
             const id = parseInt(arg);
             const user = await api.getUser(!isNaN(id) ? id : arg);
             return user;
