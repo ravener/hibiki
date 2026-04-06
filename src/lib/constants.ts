@@ -12,7 +12,8 @@ export const enum Channels {
 export const enum Links {
     Invite = 'https://web.fluxer.app/oauth2/authorize?client_id=1475787576686872332&scope=bot&permissions=4503599627750464',
     Community = 'https://fluxer.gg/VPvUEd0S',
-    GitHub = 'https://github.com/ravener/hibiki'
+    GitHub = 'https://github.com/ravener/hibiki',
+    FluxerList = 'https://fluxerlist.com/bots/hibiki'
 }
 
 export enum RankingEmojis {

@@ -17,7 +17,8 @@ export async function run(message: Message, args: string[]) {
             '',
             `• :link: ${link('Invite Link', Links.Invite)}`,
             `• :inbox_tray: ${link('Join Support Community', Links.Community)}`,
-            `• :star: ${link('Star on GitHub', Links.GitHub)}`
+            `• :star: ${link('Star on GitHub', Links.GitHub)}`,
+            `• :thumbsup: ${link('Upvote on FluxerList', Links.FluxerList)}`
         ].join('\n'));
 
     await message.reply({ embeds: [embed] });
