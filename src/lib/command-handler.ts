@@ -71,7 +71,10 @@ export async function handleCommands(message: Message) {
     const ctx: CommandContext = { alias, args, guildPrefix: prefix };
 
     try {
-        await command.run(message, args, ctx);
+        await Promise.all([
+            message.channel?.sendTyping(),
+            command.run(message, args, ctx)
+        ]);
     } catch (err) {
         if (typeof err === 'string') {
             await message.reply(err);
