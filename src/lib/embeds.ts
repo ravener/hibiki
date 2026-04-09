@@ -1,7 +1,7 @@
 import { EmbedBuilder } from '@fluxerjs/core';
 import { Colors, Emojis, RankingEmojis } from '#lib/constants';
-import { formatDecimal } from '#lib/utils';
-import { Ruleset, type Score, type User } from 'osu-api-v2-js';
+import { formatDecimal, link } from '#lib/utils';
+import { Beatmap, Ruleset, type Score, type User } from 'osu-api-v2-js';
 import { calculateBeatmap, calculateDifficulty, formatGameMode, formatMods, } from './osu.js';
 
 export function buildOsuProfileEmbed(user: User.Extended): EmbedBuilder {
@@ -47,7 +47,7 @@ export function buildOsuProfileEmbed(user: User.Extended): EmbedBuilder {
         ].join('\n'));
 }
 
-export async function buildScoreEmbed(score: Score.WithUserBeatmapBeatmapset,): Promise<EmbedBuilder> {
+export async function buildScoreEmbed(score: Score.WithUserBeatmapBeatmapset): Promise<EmbedBuilder> {
     const calc = await calculateBeatmap(score.beatmap_id, score);
     const fcPP = calc.fcPP ? ` ~~(${formatDecimal(calc.fcPP)}pp)~~` : '';
     const stars = formatDecimal(calc.stars);
@@ -114,4 +114,25 @@ export async function buildScoresList(scores: Score.WithUserBeatmapBeatmapset[])
     }
 
     return lines;
+}
+
+export function buildMostPlayedEmbed(user: User, beatmaps: Beatmap.Playcount[]) {
+    const lines = [];
+
+    for (const { count, beatmap, beatmapset } of beatmaps) {
+        const url = `https://osu.ppy.sh/b/${beatmap.id}`;
+        const title = link(`${beatmapset.artist} - ${beatmapset.title} ${beatmap.version}`, url);
+        const stars = `[${formatDecimal(beatmap.difficulty_rating)}★]`;
+
+        lines.push(`**[${count}]** ${title} ${stars}`);
+    }
+
+    return new EmbedBuilder()
+        .setColor(Colors.Primary)
+        .setAuthor({
+            name: `Most played beatmaps for ${user.username}`,
+            iconURL: user.avatar_url,
+            url: `https://osu.ppy.sh/users/${user.id}`
+        })
+        .setDescription(lines.join('\n'));
 }
