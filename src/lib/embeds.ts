@@ -121,7 +121,7 @@ export function buildMostPlayedEmbed(user: User, beatmaps: Beatmap.Playcount[]) 
 
     for (const { count, beatmap, beatmapset } of beatmaps) {
         const url = `https://osu.ppy.sh/b/${beatmap.id}`;
-        const title = link(`${beatmapset.artist} - ${beatmapset.title} ${beatmap.version}`, url);
+        const title = link(`${beatmapset.artist} - ${beatmapset.title} [${beatmap.version}]`, url);
         const stars = `[${formatDecimal(beatmap.difficulty_rating)}★]`;
 
         lines.push(`**[${count}]** ${title} ${stars}`);
