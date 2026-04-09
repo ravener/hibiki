@@ -9,20 +9,20 @@ importers:
   .:
     dependencies:
       '@fluxerjs/core':
-        specifier: ^1.2.3
-        version: 1.2.3
+        specifier: ^1.3.0
+        version: 1.3.0
       '@keyv/sqlite':
         specifier: ^4.0.8
         version: 4.0.8(keyv@5.6.0)
       dotenv:
-        specifier: ^17.3.1
-        version: 17.3.1
+        specifier: ^17.4.1
+        version: 17.4.1
       keyv:
         specifier: ^5.6.0
         version: 5.6.0
       osu-api-v2-js:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       rosu-pp-js:
         specifier: ^3.1.0
         version: 3.1.0
@@ -31,32 +31,32 @@ importers:
         specifier: ^25.3.0
         version: 25.3.0
       typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
+        specifier: ^6.0.2
+        version: 6.0.2
 
 packages:
 
-  '@fluxerjs/builders@1.2.3':
-    resolution: {integrity: sha512-VBeQtM9uEAY+WIpuHZzkx2tFtLNCgTRYcbEwrrb6s5h59rpPkEM2y94t4oYWDKCMVICffR69y1J3vggu0Q3x0w==}
+  '@fluxerjs/builders@1.3.0':
+    resolution: {integrity: sha512-EcgnttHauIqNoWC/ohcbtiC8ppkQC7eJlaNS4YT3ygvaBdRDR0v4gqUNlE4YSPTFafKJjKrCKtOvrkQ/wbixEw==}
 
-  '@fluxerjs/collection@1.2.3':
-    resolution: {integrity: sha512-1vEbqQl/PcfiYABjbiPAsKMg1UtpbjYS9b0JKwVdgPaChAF6NPusoU3vOuGzGxD2+JXK5P1V73UQQ8yKWrnUCQ==}
+  '@fluxerjs/collection@1.3.0':
+    resolution: {integrity: sha512-a42tmtPlgVz25tJndmDQKz8btB1oEmxlYhOO/Prt1vbwn32dJR0Nxlksfn4U5X4lGSTKFfwKzEx3Ng8Nza0FLQ==}
 
-  '@fluxerjs/core@1.2.3':
-    resolution: {integrity: sha512-i0lkgO7Q+DePuX3Td0kYW1U94ljG5Nup14tXlECEaTP3FZcLu3ygSy0Km1OjYVoNAsxQZkOFr1J6A6r5PH5WLQ==}
+  '@fluxerjs/core@1.3.0':
+    resolution: {integrity: sha512-sRoBEb0Lhtd0O+LR7GfE1tJOde0Q4Va64l0VE+OIO16y+l5sk5hRmQbwdcjbWftEPPKdcjLQstsZG63/a1aQqg==}
     engines: {node: '>=18.0.0'}
 
-  '@fluxerjs/rest@1.2.3':
-    resolution: {integrity: sha512-e1eodt4rNHtqtqlDL4Kp2JUsvHigS0w/LKfIrGu5nndX+LaVoh5Lp3afzWSnFilW6gqNHsqIEIgsmOGeJNP0CA==}
+  '@fluxerjs/rest@1.3.0':
+    resolution: {integrity: sha512-iZC0ul0N/JUN6Sg4DgYcoLErutl2Q8UTaGlkyTt9UW/Q2pWGUTiG9XnjAs08u1Xt6KKEopzC1flpMlGC6gTE9w==}
 
-  '@fluxerjs/types@1.2.3':
-    resolution: {integrity: sha512-oyxJfaPIpJYBSEj/is+YNk3JE2c0QVvBmc9Qr5wAmc0hGzTp1Oh2Vff8HwK14R2xL5bJde79U0eyxHxwMlf+rg==}
+  '@fluxerjs/types@1.3.0':
+    resolution: {integrity: sha512-Vo7lW3+PCZgg8XnE7mux6iLcGp2J2w9HbT40VOAH4cPAD1tcIoQtaCwiahtBdgWa+97J3L3a7gjkcEo7L5DIYQ==}
 
-  '@fluxerjs/util@1.2.3':
-    resolution: {integrity: sha512-vxDlxnQV3sTAAdZGrRQrmEx+O8Uzydw+HMx6vF4l0nxeTRwAZgR19CApY6r0tZk2mnHwZO0pqfaXbB4dHL4bGw==}
+  '@fluxerjs/util@1.3.0':
+    resolution: {integrity: sha512-/k8rcLDU+Vok45erKTP8j9Ib8+jyOzVkjV2ebUgtvmqGsbzx82LIOGzaJjOqJ+P2uAlo1lOTpDdvG/Bdr0+hqw==}
 
-  '@fluxerjs/ws@1.2.3':
-    resolution: {integrity: sha512-0aQn1myqChfO2pABYVdm1bSqWOQrDURt7Bzh42hNsiTUGiJIkyf78r24k6X1JDHXuhUEd9MTBkIDCqQ7LD1K6w==}
+  '@fluxerjs/ws@1.3.0':
+    resolution: {integrity: sha512-bAFRystaX3vEZXzi+/h3OgCYR3QisvYVBfuezntkQQ37if5V6GJmhWUh+zL8XNosRBpWxjo8igf+0w1clyHqxQ==}
 
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
@@ -179,8 +179,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  dotenv@17.3.1:
-    resolution: {integrity: sha512-IO8C/dzEb6O3F9/twg6ZLXz164a2fhTnEWb95H23Dm4OuN+92NmEAlTrupP9VW6Jm3sO26tQlqyvyi4CsnY9GA==}
+  dotenv@17.4.1:
+    resolution: {integrity: sha512-k8DaKGP6r1G30Lx8V4+pCsLzKr8vLmV2paqEj1Y55GdAgJuIqpRp5FfajGF8KtwMxCz9qJc6wUIJnm053d/WCw==}
     engines: {node: '>=12'}
 
   emoji-regex@8.0.0:
@@ -386,8 +386,8 @@ packages:
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
-  osu-api-v2-js@3.0.0:
-    resolution: {integrity: sha512-lWvLEWrILDEwg1yVq1XoKzwVP4QSQV+Yxt57yyAqlhPChUBm7Ibw8muaIyCrgdPUd2VS3qnF451nFsqIwQSsdw==}
+  osu-api-v2-js@3.0.1:
+    resolution: {integrity: sha512-8fRGUk9EAIemhIkVdQ++voTX+O9lT8quOI7gASCjAbnjlhUVaSoYAr/K3z4fafDf/H2nnjn5obMPH0TstP5c+A==}
     engines: {node: '>=20.0.0'}
 
   p-map@4.0.0:
@@ -511,8 +511,8 @@ packages:
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
-  typescript@5.9.3:
-    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
+  typescript@6.0.2:
+    resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -556,38 +556,39 @@ packages:
 
 snapshots:
 
-  '@fluxerjs/builders@1.2.3':
+  '@fluxerjs/builders@1.3.0':
     dependencies:
-      '@fluxerjs/types': 1.2.3
-      '@fluxerjs/util': 1.2.3
+      '@fluxerjs/types': 1.3.0
+      '@fluxerjs/util': 1.3.0
 
-  '@fluxerjs/collection@1.2.3': {}
+  '@fluxerjs/collection@1.3.0': {}
 
-  '@fluxerjs/core@1.2.3':
+  '@fluxerjs/core@1.3.0':
     dependencies:
-      '@fluxerjs/builders': 1.2.3
-      '@fluxerjs/collection': 1.2.3
-      '@fluxerjs/rest': 1.2.3
-      '@fluxerjs/types': 1.2.3
-      '@fluxerjs/util': 1.2.3
-      '@fluxerjs/ws': 1.2.3
+      '@fluxerjs/builders': 1.3.0
+      '@fluxerjs/collection': 1.3.0
+      '@fluxerjs/rest': 1.3.0
+      '@fluxerjs/types': 1.3.0
+      '@fluxerjs/util': 1.3.0
+      '@fluxerjs/ws': 1.3.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@fluxerjs/rest@1.2.3':
+  '@fluxerjs/rest@1.3.0':
     dependencies:
-      '@fluxerjs/types': 1.2.3
+      '@fluxerjs/types': 1.3.0
 
-  '@fluxerjs/types@1.2.3': {}
+  '@fluxerjs/types@1.3.0': {}
 
-  '@fluxerjs/util@1.2.3':
+  '@fluxerjs/util@1.3.0':
     dependencies:
-      '@fluxerjs/types': 1.2.3
+      '@fluxerjs/types': 1.3.0
 
-  '@fluxerjs/ws@1.2.3':
+  '@fluxerjs/ws@1.3.0':
     dependencies:
-      '@fluxerjs/types': 1.2.3
+      '@fluxerjs/types': 1.3.0
+      '@fluxerjs/util': 1.3.0
       ws: 8.19.0
     transitivePeerDependencies:
       - bufferutil
@@ -740,7 +741,7 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  dotenv@17.3.1: {}
+  dotenv@17.4.1: {}
 
   emoji-regex@8.0.0:
     optional: true
@@ -999,7 +1000,7 @@ snapshots:
     dependencies:
       wrappy: 1.0.2
 
-  osu-api-v2-js@3.0.0: {}
+  osu-api-v2-js@3.0.1: {}
 
   p-map@4.0.0:
     dependencies:
@@ -1163,7 +1164,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  typescript@5.9.3: {}
+  typescript@6.0.2: {}
 
   undici-types@7.18.2: {}
 
