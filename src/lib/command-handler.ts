@@ -11,9 +11,9 @@ export function getCommand(name: string) {
 }
 
 export async function getPrefix(guildId?: string | null) {
-    if (!guildId) return '!';
+    if (!guildId) return '>';
     const config = await guilds.get(guildId);
-    return config?.prefix || '!';
+    return config?.prefix || '>';
 }
 
 async function matchPrefix(message: Message, prefix: string) {
