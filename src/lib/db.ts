@@ -17,4 +17,4 @@ export async function getPrefix(guildId: string) {
     return config?.prefix
 }
 
-export { users, guilds };
+export { guilds, users };

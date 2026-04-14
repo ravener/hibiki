@@ -1,7 +1,7 @@
 import { type CommandConfig } from '#lib/command';
 import { type Message } from '@fluxerjs/core';
-import { promisify } from 'node:util';
 import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
 
 const execAsync = promisify(exec);
 

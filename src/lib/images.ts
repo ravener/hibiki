@@ -1,5 +1,5 @@
-import { EmbedBuilder, type User } from "@fluxerjs/core";
-import { Colors } from "./constants.js";
+import { EmbedBuilder, type User } from '@fluxerjs/core';
+import { Colors } from './constants.js';
 
 interface Response {
     url: string;

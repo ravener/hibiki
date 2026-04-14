@@ -1,4 +1,4 @@
-import type { EmbedBuilder, Message, ReactionCollector } from "@fluxerjs/core";
+import type { EmbedBuilder, Message, ReactionCollector } from '@fluxerjs/core';
 
 export interface PaginatorEmojis {
     firstPage?: string;

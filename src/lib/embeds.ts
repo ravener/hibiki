@@ -1,6 +1,6 @@
-import { EmbedBuilder } from '@fluxerjs/core';
 import { Colors, Emojis, RankingEmojis } from '#lib/constants';
 import { formatDecimal, link } from '#lib/utils';
+import { EmbedBuilder } from '@fluxerjs/core';
 import { Beatmap, Ruleset, type Score, type User } from 'osu-api-v2-js';
 import { calculateBeatmap, calculateDifficulty, formatGameMode, formatMods, } from './osu.js';
 

@@ -1,7 +1,7 @@
-import type { Message, User } from "@fluxerjs/core";
-import { api } from "./osu.js";
-import { APIError } from "osu-api-v2-js";
-import { users } from "./db.js";
+import type { Message, User } from '@fluxerjs/core';
+import { APIError } from 'osu-api-v2-js';
+import { users } from './db.js';
+import { api } from './osu.js';
 
 /**
  * Converts a string to proper case.

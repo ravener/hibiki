@@ -1,7 +1,7 @@
+import { join } from 'node:path';
 import * as osu from 'osu-api-v2-js';
 import { Beatmap, Difficulty, DifficultyAttributes, GameMode, Performance } from 'rosu-pp-js';
 import { BeatmapCache } from './beatmap-cache.js';
-import { join } from 'node:path';
 
 const CLIENT_ID = parseInt(process.env.OSU_CLIENT_ID!);
 const CLIENT_SECRET = process.env.OSU_CLIENT_SECRET!;

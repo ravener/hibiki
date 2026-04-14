@@ -1,9 +1,9 @@
 import 'dotenv/config';
 
 import type { Command } from '#lib/command';
-import { aliases, commands, handleCommands } from '#lib/command-handler';
+import { aliases, commands } from '#lib/command-handler';
 import { toProperCase } from '#lib/utils';
-import { Client, Events, Message } from '@fluxerjs/core';
+import { Client } from '@fluxerjs/core';
 import { readdir } from 'node:fs/promises';
 import { basename, dirname, join, parse } from 'node:path';
 import { fileURLToPath } from 'node:url';
