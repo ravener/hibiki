@@ -49,14 +49,33 @@ async function loadCommands() {
     }
 }
 
-client.on(Events.Ready, () => {
-    console.log(`Ready! Logged in as ${client.user!.username}`);
-});
+async function loadEvents() {
+    const baseDir = fileURLToPath(dirname(import.meta.url));
+    const files = await readdir(join(baseDir, 'events'), { recursive: true });
 
-client.on(Events.MessageCreate, async (message: Message) => {
-    await handleCommands(message);
-});
+    for (const file of files) {
+        if (!file.endsWith('.js')) continue;
+
+        const { run } = await import(join(baseDir, 'events', file));
+        const { name } = parse(file);
+
+        if (!run) {
+            console.warn(`${file} does not export a run function.`);
+            continue;
+        }
+
+        client.on(name, async (...args) => {
+            try {
+                await run(client, ...args);
+            } catch (err) {
+                console.error(`Error in event '${name}'`, err);
+            }
+        });
+    }
+}
 
 await loadCommands();
+await loadEvents();
+
 console.log(`Loaded ${commands.size} commands`);
 await client.login(process.env.TOKEN!);
