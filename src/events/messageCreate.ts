@@ -10,7 +10,7 @@ async function handleUserLink(message: Message) {
     if (!match) return;
 
     const userId = match[1]!;
-    const gameMode = match[2] ? match[2].toLowerCase() : 'osu';
+    const gameMode = match[2];
 
     const rulesetMap: Record<string, Ruleset> = {
         osu: Ruleset.osu,
@@ -18,11 +18,11 @@ async function handleUserLink(message: Message) {
         taiko: Ruleset.taiko,
         mania: Ruleset.mania
     };
-    const ruleset = rulesetMap[gameMode] || Ruleset.osu;
+    const ruleset = gameMode ? rulesetMap[gameMode] : undefined;
 
     const user = await api.getUser(!isNaN(parseInt(userId)) ? parseInt(userId) : userId, ruleset);
     await message.reply({
-        embeds: [buildOsuProfileEmbed(user, ruleset)]
+        embeds: [buildOsuProfileEmbed(user, ruleset ?? user.playmode)]
     });
 }
 
