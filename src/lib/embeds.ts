@@ -38,7 +38,7 @@ export function buildOsuProfileEmbed(user: User.Extended, ruleset: Ruleset | key
         })
         .setThumbnail(user.avatar_url)
         .setDescription([
-            `▸ **Rank:** #${user.statistics.global_rank?.toLocaleString()} (${user.country_code}#${user.statistics.country_rank?.toLocaleString()})`,
+            `▸ **Rank:** #${user.statistics.global_rank?.toLocaleString() ?? '-'} (${user.country_code}#${user.statistics.country_rank?.toLocaleString() ?? '-'})`,
             `▸ **Peak Rank:** ${peakRankLine}`,
             `▸ **Level:** ${user.statistics.level.current} + ${user.statistics.level.progress}%${team}`,
             `▸ **PP:** ${user.statistics.pp?.toLocaleString()} **Accuracy:** ${accuracy}%`,
