@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@fluxerjs/core':
-        specifier: ^1.3.0
-        version: 1.3.0
+        specifier: ^1.3.1
+        version: 1.3.1
       '@keyv/sqlite':
         specifier: ^4.0.8
         version: 4.0.8(keyv@5.6.0)
       dotenv:
-        specifier: ^17.4.1
-        version: 17.4.1
+        specifier: ^17.4.2
+        version: 17.4.2
       keyv:
         specifier: ^5.6.0
         version: 5.6.0
@@ -24,39 +24,39 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       rosu-pp-js:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^4.0.1
+        version: 4.0.1
     devDependencies:
       '@types/node':
-        specifier: ^25.3.0
-        version: 25.3.0
+        specifier: ^25.6.2
+        version: 25.6.2
       typescript:
-        specifier: ^6.0.2
-        version: 6.0.2
+        specifier: ^6.0.3
+        version: 6.0.3
 
 packages:
 
-  '@fluxerjs/builders@1.3.0':
-    resolution: {integrity: sha512-EcgnttHauIqNoWC/ohcbtiC8ppkQC7eJlaNS4YT3ygvaBdRDR0v4gqUNlE4YSPTFafKJjKrCKtOvrkQ/wbixEw==}
+  '@fluxerjs/builders@1.3.1':
+    resolution: {integrity: sha512-vkNZCXk48CzEhiODw7CD8DAka+8C1Ve4oljLpnOOT2o2+o80qd7Q2jmWGDvWSJdaEGqA7neffmo5mRAb2jwMaw==}
 
-  '@fluxerjs/collection@1.3.0':
-    resolution: {integrity: sha512-a42tmtPlgVz25tJndmDQKz8btB1oEmxlYhOO/Prt1vbwn32dJR0Nxlksfn4U5X4lGSTKFfwKzEx3Ng8Nza0FLQ==}
+  '@fluxerjs/collection@1.3.1':
+    resolution: {integrity: sha512-HvfaAKkU1JPtfT+uyf/PKYcmxqDnRtKwjAgre3So/egiCu88NMNOt/ILhZzJGTShzaWCF0zB792WcJl/qcPMUg==}
 
-  '@fluxerjs/core@1.3.0':
-    resolution: {integrity: sha512-sRoBEb0Lhtd0O+LR7GfE1tJOde0Q4Va64l0VE+OIO16y+l5sk5hRmQbwdcjbWftEPPKdcjLQstsZG63/a1aQqg==}
+  '@fluxerjs/core@1.3.1':
+    resolution: {integrity: sha512-Yoy8rmsAnSETVeeOs4FUgfq+lFkhvuOp2t/3C9alo1IqG5Ex+nedSpvUnN5xwUXDFsP1WCJh+tL2FYKrfg9riA==}
     engines: {node: '>=18.0.0'}
 
-  '@fluxerjs/rest@1.3.0':
-    resolution: {integrity: sha512-iZC0ul0N/JUN6Sg4DgYcoLErutl2Q8UTaGlkyTt9UW/Q2pWGUTiG9XnjAs08u1Xt6KKEopzC1flpMlGC6gTE9w==}
+  '@fluxerjs/rest@1.3.1':
+    resolution: {integrity: sha512-O9/SUEZ4IVa+45P83dBTmBt+p+0ZvyBvvGY5HbYvXO1XClnljEUibibgXFJRD05oqSu/4PWP1Wy7etAh93fJuQ==}
 
-  '@fluxerjs/types@1.3.0':
-    resolution: {integrity: sha512-Vo7lW3+PCZgg8XnE7mux6iLcGp2J2w9HbT40VOAH4cPAD1tcIoQtaCwiahtBdgWa+97J3L3a7gjkcEo7L5DIYQ==}
+  '@fluxerjs/types@1.3.1':
+    resolution: {integrity: sha512-FBzjN1roBb6gjHSpWTYBepB51s7dxJccQjsMAszKFtQD0MAefOeSt4deFHsp3bGaUEAkQg6Lsol7Zg5qgQZNfg==}
 
-  '@fluxerjs/util@1.3.0':
-    resolution: {integrity: sha512-/k8rcLDU+Vok45erKTP8j9Ib8+jyOzVkjV2ebUgtvmqGsbzx82LIOGzaJjOqJ+P2uAlo1lOTpDdvG/Bdr0+hqw==}
+  '@fluxerjs/util@1.3.1':
+    resolution: {integrity: sha512-hgF/6G+zr8E4rvP7HQK7qaBpfJRk92Y2RkGWDXQY3UIHCWD+CirnhjmmmghRL4c1SKCwXPH4LnErLhNuqFF6cQ==}
 
-  '@fluxerjs/ws@1.3.0':
-    resolution: {integrity: sha512-bAFRystaX3vEZXzi+/h3OgCYR3QisvYVBfuezntkQQ37if5V6GJmhWUh+zL8XNosRBpWxjo8igf+0w1clyHqxQ==}
+  '@fluxerjs/ws@1.3.1':
+    resolution: {integrity: sha512-8HONSMBNRrWtHQJqZG8JOZT+nyq7+1IH3oxpxudG8NqVPRLphj+E36XVTyKuABhU/5/PefYc1WcyGVmQhn7djQ==}
 
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
@@ -82,8 +82,8 @@ packages:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
     engines: {node: '>= 6'}
 
-  '@types/node@25.3.0':
-    resolution: {integrity: sha512-4K3bqJpXpqfg2XKGK9bpDTc6xO/xoUP/RBWS7AtRMug6zZFaRekiLzjVtAoZMquxoAbzBvy5nxQ7veS5eYzf8A==}
+  '@types/node@25.6.2':
+    resolution: {integrity: sha512-sokuT28dxf9JT5Kady1fsXOvI4HVpjZa95NKT5y9PNTIrs2AsobR4GFAA90ZG8M+nxVRLysCXsVj6eGC7Vbrlw==}
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -179,8 +179,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  dotenv@17.4.1:
-    resolution: {integrity: sha512-k8DaKGP6r1G30Lx8V4+pCsLzKr8vLmV2paqEj1Y55GdAgJuIqpRp5FfajGF8KtwMxCz9qJc6wUIJnm053d/WCw==}
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
   emoji-regex@8.0.0:
@@ -436,8 +436,8 @@ packages:
     deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
-  rosu-pp-js@3.1.0:
-    resolution: {integrity: sha512-5YR/ar+XKLvAJAEvPhfEeBunDAY/qPFoey9b9ykvbNDR1K6FO77Mj7VblPpVs9O5TFRwecVSvOLFHMaY63l3YA==}
+  rosu-pp-js@4.0.1:
+    resolution: {integrity: sha512-yEjhglfSrDVV3aBkd61RgaMqdKbLIX3225gkHS67+IboVZwC2PCmbDl7yaBDV4CSQTtkEEhWIpwdhHTJnoVOcQ==}
 
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
@@ -511,13 +511,13 @@ packages:
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
-  typescript@6.0.2:
-    resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@7.18.2:
-    resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
+  undici-types@7.19.2:
+    resolution: {integrity: sha512-qYVnV5OEm2AW8cJMCpdV20CDyaN3g0AjDlOGf1OW4iaDEx8MwdtChUp4zu4H0VP3nDRF/8RKWH+IPp9uW0YGZg==}
 
   unique-filename@1.1.1:
     resolution: {integrity: sha512-Vmp0jIp2ln35UTXuryvjzkjGdRyf9b2lTXuSYUiPmzRcl3FDtYqAwOnTJkAngD9SWhnoJzDbTKwaOrZ+STtxNQ==}
@@ -556,39 +556,39 @@ packages:
 
 snapshots:
 
-  '@fluxerjs/builders@1.3.0':
+  '@fluxerjs/builders@1.3.1':
     dependencies:
-      '@fluxerjs/types': 1.3.0
-      '@fluxerjs/util': 1.3.0
+      '@fluxerjs/types': 1.3.1
+      '@fluxerjs/util': 1.3.1
 
-  '@fluxerjs/collection@1.3.0': {}
+  '@fluxerjs/collection@1.3.1': {}
 
-  '@fluxerjs/core@1.3.0':
+  '@fluxerjs/core@1.3.1':
     dependencies:
-      '@fluxerjs/builders': 1.3.0
-      '@fluxerjs/collection': 1.3.0
-      '@fluxerjs/rest': 1.3.0
-      '@fluxerjs/types': 1.3.0
-      '@fluxerjs/util': 1.3.0
-      '@fluxerjs/ws': 1.3.0
+      '@fluxerjs/builders': 1.3.1
+      '@fluxerjs/collection': 1.3.1
+      '@fluxerjs/rest': 1.3.1
+      '@fluxerjs/types': 1.3.1
+      '@fluxerjs/util': 1.3.1
+      '@fluxerjs/ws': 1.3.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@fluxerjs/rest@1.3.0':
+  '@fluxerjs/rest@1.3.1':
     dependencies:
-      '@fluxerjs/types': 1.3.0
+      '@fluxerjs/types': 1.3.1
 
-  '@fluxerjs/types@1.3.0': {}
+  '@fluxerjs/types@1.3.1': {}
 
-  '@fluxerjs/util@1.3.0':
+  '@fluxerjs/util@1.3.1':
     dependencies:
-      '@fluxerjs/types': 1.3.0
+      '@fluxerjs/types': 1.3.1
 
-  '@fluxerjs/ws@1.3.0':
+  '@fluxerjs/ws@1.3.1':
     dependencies:
-      '@fluxerjs/types': 1.3.0
-      '@fluxerjs/util': 1.3.0
+      '@fluxerjs/types': 1.3.1
+      '@fluxerjs/util': 1.3.1
       ws: 8.19.0
     transitivePeerDependencies:
       - bufferutil
@@ -622,9 +622,9 @@ snapshots:
   '@tootallnate/once@1.1.2':
     optional: true
 
-  '@types/node@25.3.0':
+  '@types/node@25.6.2':
     dependencies:
-      undici-types: 7.18.2
+      undici-types: 7.19.2
 
   abbrev@1.1.1:
     optional: true
@@ -741,7 +741,7 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  dotenv@17.4.1: {}
+  dotenv@17.4.2: {}
 
   emoji-regex@8.0.0:
     optional: true
@@ -1060,7 +1060,7 @@ snapshots:
       glob: 7.2.3
     optional: true
 
-  rosu-pp-js@3.1.0: {}
+  rosu-pp-js@4.0.1: {}
 
   safe-buffer@5.2.1: {}
 
@@ -1164,9 +1164,9 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  typescript@6.0.2: {}
+  typescript@6.0.3: {}
 
-  undici-types@7.18.2: {}
+  undici-types@7.19.2: {}
 
   unique-filename@1.1.1:
     dependencies:
