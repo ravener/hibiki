@@ -4,7 +4,7 @@ import { api } from '#lib/osu';
 import type { Client, Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
 
-const regex = /^http(?:s)?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(?:osu|fruits|taiko|mania)(?:\/)?)?/;
+const regex = /^http(?:s)?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(osu|fruits|taiko|mania)(?:\/)?)?/;
 async function handleUserLink(message: Message) {
     const match = message.content.match(regex);
     if (!match) return;
