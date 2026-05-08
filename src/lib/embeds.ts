@@ -4,7 +4,7 @@ import { EmbedBuilder } from '@fluxerjs/core';
 import { Beatmap, Ruleset, type Score, type User } from 'osu-api-v2-js';
 import { calculateBeatmap, calculateDifficulty, formatGameMode, formatMods, } from './osu.js';
 
-export function buildOsuProfileEmbed(user: User.Extended): EmbedBuilder {
+export function buildOsuProfileEmbed(user: User.Extended, ruleset: Ruleset | keyof typeof Ruleset): EmbedBuilder {
     const team = user.team
         ? ` **Team:** [${user.team.short_name}](https://osu.ppy.sh/teams/${user.team.id})`
         : '';
@@ -27,7 +27,7 @@ export function buildOsuProfileEmbed(user: User.Extended): EmbedBuilder {
     }
 
     const playtimeHours = (user.statistics.play_time! / 60 / 60).toFixed();
-    const gamemode = formatGameMode(user.playmode);
+    const gamemode = formatGameMode(ruleset);
 
     return new EmbedBuilder()
         .setColor(Colors.Primary)

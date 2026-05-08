@@ -18,10 +18,11 @@ async function handleUserLink(message: Message) {
         taiko: Ruleset.taiko,
         mania: Ruleset.mania
     };
+    const ruleset = rulesetMap[gameMode] || Ruleset.osu;
 
-    const user = await api.getUser(!isNaN(parseInt(userId)) ? parseInt(userId) : userId, rulesetMap[gameMode] || Ruleset.osu);
+    const user = await api.getUser(!isNaN(parseInt(userId)) ? parseInt(userId) : userId, ruleset);
     await message.reply({
-        embeds: [buildOsuProfileEmbed(user)]
+        embeds: [buildOsuProfileEmbed(user, ruleset)]
     });
 }
 

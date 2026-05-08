@@ -1,5 +1,5 @@
 import type { Message, User } from '@fluxerjs/core';
-import { APIError } from 'osu-api-v2-js';
+import { APIError, Ruleset } from 'osu-api-v2-js';
 import { users } from './db.js';
 import { api } from './osu.js';
 
@@ -47,7 +47,7 @@ export function parseUser(mention: string) {
  * @param arg - The user input
  * @returns osu! user or undefined
  */
-export async function getOsuUser(message: Message, arg: string | undefined) {
+export async function getOsuUser(message: Message, arg: string | undefined, ruleset: Ruleset = Ruleset.osu) {
     try {
         if (arg) {
             // If they mentioned another user (try to find the linked account to that user)
