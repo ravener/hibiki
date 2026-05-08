@@ -27,10 +27,10 @@ export function link(name: string, url: string): string {
     return `[${name}](${url})`;
 }
 
-async function getLinkedUser(userId: string) {
+async function getLinkedUser(userId: string, ruleset: Ruleset = Ruleset.osu) {
     const config = await users.get(userId);
     if (config?.osuId) {
-        return api.getUser(config.osuId);
+        return api.getUser(config.osuId, ruleset);
     }
     return null;
 }
@@ -53,7 +53,7 @@ export async function getOsuUser(message: Message, arg: string | undefined, rule
             // If they mentioned another user (try to find the linked account to that user)
             const match = parseUser(arg);
             if (match) {
-                const user = await getLinkedUser(match);
+                const user = await getLinkedUser(match, ruleset);
                 if (user) return user;
                 await message.reply(`That user does not have an osu! account linked.`);
                 return;
@@ -63,16 +63,16 @@ export async function getOsuUser(message: Message, arg: string | undefined, rule
             const url = arg.match(/^http(?:s)?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(?:osu|fruits|taiko|mania)(?:\/)?)?/);
             if (url && url[1]) {
                 const id = parseInt(url[1]);
-                return await api.getUser(!isNaN(id) ? id : url[1]);
+                return await api.getUser(!isNaN(id) ? id : url[1], ruleset);
             }
 
             // If they passed an ID or name
             const id = parseInt(arg);
-            const user = await api.getUser(!isNaN(id) ? id : arg);
+            const user = await api.getUser(!isNaN(id) ? id : arg, ruleset);
             return user;
         }
 
-        const user = await getLinkedUser(message.author.id);
+        const user = await getLinkedUser(message.author.id, ruleset);
         if (user) return user;
 
         await message.reply('You need to provide an osu! username or use the `link` command to save your osu! account.');
