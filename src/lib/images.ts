@@ -1,53 +1,47 @@
 import { EmbedBuilder, type User } from '@fluxerjs/core';
 import { Colors } from './constants.js';
 
-interface Response {
+interface Image {
     url: string;
+    anime_name?: string;
+    artist_name?: string;
 }
 
-// https://nekos.life/api/v2/endpoints
-export type NekosLifeImg = 'ngif' | 'hug' | 'gecg' | 'pat' | 'cuddle' | 'meow' | 'tickle' | 'gasm' | 'goose' | 'lewd' | 'v3' | 'spank' | 'feed' | 'slap' | 'wallpaper' | 'neko' | 'lizard' | 'woof' | 'fox_girl' | '8ball' | 'kiss' | 'avatar' | 'waifu' | 'smug';
-// https://waifu.pics/docs
-export type WaifuPicsImg = 'waifu' | 'neko' | 'shinobu' | 'megumin' | 'bully' | 'cuddle' | 'cry' | 'hug' | 'awoo' | 'kiss' | 'lick' | 'pat' | 'smug' | 'bonk' | 'yeet' | 'blush' | 'smile' | 'wave' | 'highfive' | 'handhold' | 'nom' | 'bite' | 'glomp' | 'slap' | 'kill' | 'kick' | 'happy' | 'wink' | 'poke' | 'dance' | 'cringe';
+interface Response {
+    results: [Image]
+}
 
-export type PicTypes = Extract<NekosLifeImg, WaifuPicsImg>;
+// https://nekos.best/api/v2/endpoints
+export type PicTypes = 'lurk' | 'shoot' | 'sleep' | 'clap'
+    | 'shrug' | 'stare' | 'wave' | 'poke' | 'confused'
+    | 'smile' | 'peck' | 'wink' | 'sip' | 'blush' | 'smug'
+    | 'tickle' | 'yeet' | 'think' | 'highfive' | 'feed'
+    | 'wag' | 'bite' | 'teehee' | 'shocked' | 'bleh'
+    | 'bored' | 'nom' | 'nya' | 'yawn' | 'facepalm'
+    | 'cuddle' | 'kick' | 'happy' | 'carry' | 'hug'
+    | 'kabedon' | 'baka' | 'bonk' | 'pat' | 'angry'
+    | 'spin' | 'shake' | 'run' | 'node' | 'nope'
+    | 'kiss' | 'dance' | 'punch' | 'handshake'
+    | 'slap' | 'cry' | 'lappillow' | 'pout'
+    | 'blowkiss' | 'handhold' | 'salute'
+    | 'thumbsup' | 'laugh' | 'tableflip'
+    | 'neko' | 'waifu' | 'husbando'
+    | 'kitsune';
 
-export async function nekosLife(type: NekosLifeImg) {
-    const response = await fetch(`https://nekos.life/api/v2/img/${type}`);
+
+export async function fetchImage(target: User, type: PicTypes, title: string) {
+    const response = await fetch(`https://nekos.best/api/v2/${type}`);
 
     if (!response.ok) {
-        throw new Error(`Nekos.life API Error: ${response.status} ${response.statusText}`);
+        throw new Error(`Nekos.best API Error: ${response.status} ${response.statusText}`);
     }
 
-    const { url } = await response.json() as Response;
-    return url;
-}
+    const data = await response.json() as Response;
+    const image = data.results[0];
 
-export async function waifuAPI(type: WaifuPicsImg) {
-    const response = await fetch(`https://api.waifu.pics/sfw/${type}`);
-
-    if (!response.ok) {
-        throw new Error(`Waifu.pics API Error: ${response.status} ${response.statusText}`);
-    }
-
-    const { url } = await response.json() as Response;
-    return url;
-}
-
-/**
- * Use either of the APIs available for more diversity.
- * Only for image types that both APIs have in common.
- */
-export function randomAPI(type: PicTypes) {
-    const fns = [nekosLife, waifuAPI];
-    const fn = fns[~~(Math.random() * fns.length)]!;
-
-    return fn(type);
-}
-
-export function imageEmbed(target: User, url: string, title: string) {
     return new EmbedBuilder()
         .setColor(Colors.Primary)
         .setAuthor({ iconURL: target.displayAvatarURL(), name: title })
-        .setImage(url);
+        .setImage(image.url)
+        .setFooter({ text: `Source: ${image.anime_name ?? image.artist_name}` });
 }
