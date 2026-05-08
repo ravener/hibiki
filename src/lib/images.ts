@@ -8,7 +8,7 @@ interface Image {
 }
 
 interface Response {
-    results: [Image]
+    results: [Image];
 }
 
 // https://nekos.best/api/v2/endpoints
