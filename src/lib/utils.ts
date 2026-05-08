@@ -63,7 +63,7 @@ export async function getOsuUser(message: Message, arg: string | undefined) {
             const url = arg.match(/^http(?:s)?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(?:osu|fruits|taiko|mania)(?:\/)?)?/);
             if (url && url[1]) {
                 const id = parseInt(url[1]);
-                return api.getUser(!isNaN(id) ? id : url[1]);
+                return await api.getUser(!isNaN(id) ? id : url[1]);
             }
 
             // If they passed an ID or name
