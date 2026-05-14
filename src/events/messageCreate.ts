@@ -1,12 +1,27 @@
 import { handleCommands } from '#lib/command-handler';
-import { buildOsuProfileEmbed } from '#lib/embeds';
+import { buildOsuProfileEmbed, buildScoreEmbed } from '#lib/embeds';
 import { api } from '#lib/osu';
 import type { Client, Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
 
-const regex = /^http(?:s)?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(osu|fruits|taiko|mania)(?:\/)?)?/;
+const userRegex = /^http(?:s)?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(osu|fruits|taiko|mania)(?:\/)?)?/;
+const scoreRegex = /^http(?:s)?:\/\/osu.ppy.sh\/scores\/([^\/\s]+)(?:\/)?/;
+
+async function handleScoreLink(message: Message) {
+    const match = message.content.match(scoreRegex);
+    if (!match) return;
+
+    const scoreId = parseInt(match[1]!);
+    if (isNaN(scoreId)) return;
+    const score = await api.getScore(scoreId);
+
+    await message.reply({
+        embeds: [await buildScoreEmbed(score)]
+    });
+}
+
 async function handleUserLink(message: Message) {
-    const match = message.content.match(regex);
+    const match = message.content.match(userRegex);
     if (!match) return;
 
     const userId = match[1]!;
@@ -29,4 +44,5 @@ async function handleUserLink(message: Message) {
 export async function run(client: Client, message: Message) {
     await handleCommands(message);
     await handleUserLink(message);
+    await handleScoreLink(message);
 }
