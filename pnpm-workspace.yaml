@@ -1,2 +1,2 @@
-onlyBuiltDependencies:
-  - sqlite3
+allowBuilds:
+  better-sqlite3: true
