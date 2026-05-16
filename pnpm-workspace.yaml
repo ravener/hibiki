@@ -1,2 +1,2 @@
 allowBuilds:
-  better-sqlite3: true
+  sqlite3: true
