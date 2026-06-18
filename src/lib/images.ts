@@ -1,5 +1,5 @@
 import { EmbedBuilder, type User } from '@fluxerjs/core';
-import { Colors } from './constants.js';
+import { Colors, Links } from './constants.js';
 
 interface Image {
     url: string;
@@ -30,7 +30,12 @@ export type PicTypes = 'lurk' | 'shoot' | 'sleep' | 'clap'
 
 
 export async function fetchImage(target: User, type: PicTypes, title: string) {
-    const response = await fetch(`https://nekos.best/api/v2/${type}`);
+    const response = await fetch(`https://nekos.best/api/v2/${type}`, {
+        headers: {
+            'User-Agent': `Hibiki (${Links.GitHub})`,
+            'Accept': 'application/json'
+        }
+    });
 
     if (!response.ok) {
         throw new Error(`Nekos.best API Error: ${response.status} ${response.statusText}`);
