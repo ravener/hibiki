@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@fluxerjs/core':
-        specifier: ^2.0.2
-        version: 2.0.2
+        specifier: ^2.0.3
+        version: 2.0.3
       '@keyv/sqlite':
         specifier: ^4.0.8
         version: 4.0.8(keyv@5.6.0)
@@ -42,8 +42,8 @@ packages:
   '@fluxerjs/collection@2.0.0':
     resolution: {integrity: sha512-NF2Qwh5uTcyp4DI6T8vWz70uUH8NxvijQwyqMYc9H8fhJZYFoWoL1iUrFu8D9pH2THEDvlSAUw7ees90iU8axA==}
 
-  '@fluxerjs/core@2.0.2':
-    resolution: {integrity: sha512-fPxgqbE5O5d+ld1w7M7cfqiK+jxJHGG3nbGjr7tkCUuaqq6jtqVtgtgAP0PyKAKIDsC/Vj2pTB8yEp7I9SVRfw==}
+  '@fluxerjs/core@2.0.3':
+    resolution: {integrity: sha512-2xUzb3NYfCuNPW0AuSU9uRWsSi2RdFfuqnCswQIf0kkq20sNAoNvycQN1wcWOISjIYAag5JroZ9Br0fMS20TjA==}
     engines: {node: '>=18.0.0'}
 
   '@fluxerjs/rest@2.0.2':
@@ -567,7 +567,7 @@ snapshots:
 
   '@fluxerjs/collection@2.0.0': {}
 
-  '@fluxerjs/core@2.0.2':
+  '@fluxerjs/core@2.0.3':
     dependencies:
       '@fluxerjs/builders': 2.0.0
       '@fluxerjs/collection': 2.0.0
