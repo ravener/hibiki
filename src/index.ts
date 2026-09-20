@@ -11,8 +11,8 @@ import { fileURLToPath } from 'node:url';
 const client = new Client({
     intents: 0,
     presence: {
-        custom_status: {
-            emoji_id: '1476543520190574790',
+        customStatus: {
+            emojiId: '1476543520190574790',
             text: 'Clicking circles | >help'
         },
         status: 'online'

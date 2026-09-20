@@ -32,11 +32,11 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@fluxerjs/core": "^2.0.3",
+    "@fluxerjs/core": "^3.1.0",
     "@keyv/sqlite": "^4.0.8",
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.1",
     "keyv": "^5.6.0",
-    "osu-api-v2-js": "^3.0.4",
+    "osu-api-v2-js": "^3.0.5",
     "rosu-pp-js": "^4.0.1"
   }
 }
