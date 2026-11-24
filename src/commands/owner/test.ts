@@ -21,6 +21,6 @@ export async function run(message: Message, args: string[]) {
     ];
 
     const paginator = new Paginator(message);
-    for (const page of pages) paginator.addPage(page);
+    for (const page of pages) paginator.addPage({ embed: page });
     await paginator.run();
 }

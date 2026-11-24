@@ -22,11 +22,23 @@ const defaultEmojis: PaginatorEmojis = {
     lastPage: "⏭"
 };
 
+export interface PaginatorPage {
+    content?: string;
+    embed?: EmbedBuilder;
+}
+
+function normalizePage(page: PaginatorPage) {
+    return {
+        ...(page.content && { content: page.content }),
+        ...(page.embed && { embeds: [page.embed] }),
+    };
+}
+
 export class Paginator {
     private authorMessage: Message;
     private message?: Message;
     private options: Required<PaginatorOptions>;
-    private pages: EmbedBuilder[];
+    private pages: PaginatorPage[];
     private page: number;
     private stopped: boolean;
     private collector?: ReactionCollector;
@@ -44,8 +56,8 @@ export class Paginator {
         this.stopped = false;
     }
 
-    addPage(embed: EmbedBuilder) {
-        this.pages.push(embed);
+    addPage(page: PaginatorPage) {
+        this.pages.push(page);
     }
 
     async firstPage() {
@@ -80,22 +92,22 @@ export class Paginator {
     async showPage(page: number) {
         if (this.stopped) return;
         if (!this.message) {
-            const embed = this.pages[page];
-            if (!embed) return;
+            const pageData = this.pages[page];
+            if (!pageData) return;
 
             if (this.options.reply) {
-                this.message = await this.authorMessage.reply({ embeds: [embed] });
+                this.message = await this.authorMessage.reply(normalizePage(pageData));
             } else {
-                this.message = await this.authorMessage.send({ embeds: [embed] });
+                this.message = await this.authorMessage.send(normalizePage(pageData));
             }
 
             return;
         }
 
-        const embed = this.pages[page];
-        if (!embed) return;
+        const pageData = this.pages[page];
+        if (!pageData) return;
         this.page = page;
-        await this.message.edit({ embeds: [embed] });
+        await this.message.edit(normalizePage(pageData));
     }
 
     async run() {
