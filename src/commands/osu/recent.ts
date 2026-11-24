@@ -1,7 +1,6 @@
 import type { CommandConfig, CommandContext } from '#lib/command';
 import { buildScoreEmbed } from '#lib/embeds';
 import { api, formatGameMode } from '#lib/osu';
-import { Paginator } from '#lib/paginator';
 import { getOsuUser } from '#lib/utils';
 import type { Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
@@ -24,21 +23,16 @@ export async function run(message: Message, args: string[], ctx: CommandContext)
     if (!user) return;
 
     const ruleset = aliasToRuleset[ctx.alias];
-    const scores = await api.getUserScores(user.id, 'recent', ruleset, { fails: true }, { limit: 10 });
+    const scores = await api.getUserScores(user.id, 'recent', ruleset, { fails: true });
+    const score = scores[0];
 
-    if (!scores.length) {
+    if (!score) {
         await message.reply(`No recent plays found for user **${user.username}**`);
         return;
     }
 
-    const paginator = new Paginator(message);
-
-    for (const score of scores) {
-        paginator.addPage({
-            content: `Recent **${formatGameMode(score.ruleset_id)}** play for **${user.username}**`,
-            embed: await buildScoreEmbed(score)
-        });
-    }
-
-    await paginator.run();
+    await message.reply({
+        content: `Recent **${formatGameMode(score.ruleset_id)}** play for **${user.username}**`,
+        embeds: [await buildScoreEmbed(score)]
+    });
 }
