@@ -1,7 +1,7 @@
 import { Colors, Emojis, RankingEmojis } from '#lib/constants';
-import { formatDecimal, link } from '#lib/utils';
+import { formatDecimal, formatSeconds, link } from '#lib/utils';
 import { EmbedBuilder } from '@fluxerjs/core';
-import { Beatmap, Ruleset, type Score, type User } from 'osu-api-v2-js';
+import { Beatmap, Beatmapset, Ruleset, type Score, type User } from 'osu-api-v2-js';
 import { calculateBeatmap, calculateDifficulty, formatGameMode, formatMods, } from './osu.js';
 
 export function buildOsuProfileEmbed(user: User.Extended, ruleset: Ruleset | keyof typeof Ruleset): EmbedBuilder {
@@ -135,4 +135,23 @@ export function buildMostPlayedEmbed(user: User, beatmaps: Beatmap.Playcount[]) 
             url: `https://osu.ppy.sh/users/${user.id}`
         })
         .setDescription(lines.join('\n'));
+}
+
+export function buildBeatmapEmbed(beatmap: Beatmap.Extended.WithFailtimesOwnersMaxcomboBeatmapset) {
+    const totalObjects = beatmap.count_circles + beatmap.count_sliders + beatmap.count_spinners;
+    const rankStatus = Beatmapset.RankStatus[beatmap.beatmapset.ranked];
+
+    return new EmbedBuilder()
+        .setColor(Colors.Primary)
+        .setTitle(`${beatmap.beatmapset.artist} - ${beatmap.beatmapset.title} [${beatmap.version}]`)
+        .setURL(`https://osu.ppy.sh/b/${beatmap.id}`)
+        .setDescription([
+            `Combo: \`${beatmap.max_combo}x\` Stars: \`${formatDecimal(beatmap.difficulty_rating)}★\``,
+            `Length: \`${formatSeconds(beatmap.total_length)}\` (\`${formatSeconds(beatmap.hit_length)}\`) BPM: \`${beatmap.bpm}\` Objects: \`${totalObjects}\``,
+            `CS: \`${beatmap.cs}\` AR: \`${beatmap.ar}\` OD: \`${beatmap.accuracy}\` HP: \`${beatmap.drain}\``
+        ].join('\n'))
+        .setImage(`https://b.ppy.sh/thumb/${beatmap.beatmapset.id}l.jpg`)
+        .setFooter({
+            text: `Mapped by ${beatmap.beatmapset.creator} | ${rankStatus}`
+        });
 }

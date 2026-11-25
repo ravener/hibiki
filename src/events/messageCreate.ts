@@ -1,11 +1,35 @@
 import { handleCommands } from '#lib/command-handler';
-import { buildOsuProfileEmbed, buildScoreEmbed } from '#lib/embeds';
+import { buildBeatmapEmbed, buildOsuProfileEmbed, buildScoreEmbed } from '#lib/embeds';
 import { api } from '#lib/osu';
 import type { Client, Message } from '@fluxerjs/core';
 import { Ruleset } from 'osu-api-v2-js';
 
-const userRegex = /^http(?:s)?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(osu|fruits|taiko|mania)(?:\/)?)?/;
-const scoreRegex = /^http(?:s)?:\/\/osu.ppy.sh\/scores\/([^\/\s]+)(?:\/)?/;
+const userRegex = /^https?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(osu|fruits|taiko|mania)(?:\/)?)?/;
+const scoreRegex = /^https?:\/\/osu.ppy.sh\/scores\/([^\/\s]+)(?:\/)?/;
+const beatmapRegex = /^https?:\/\/osu\.ppy\.sh\/beatmapsets\/(\d+)(?:#(?:osu|fruits|taiko|mania)\/(\d+))?/;
+
+async function handleBeatmapLink(message: Message) {
+    const match = message.content.match(beatmapRegex);
+    if (!match) return;
+
+    const beatmapsetId = parseInt(match[1]!);
+    const beatmapId = match[2] ? parseInt(match[2]!) : undefined;
+
+    if (isNaN(beatmapsetId)) return;
+
+    if (beatmapId) {
+        const beatmap = await api.getBeatmap(beatmapId);
+
+        await message.reply({
+            embeds: [buildBeatmapEmbed(beatmap)]
+        });
+
+        return;
+    }
+
+    // TODO
+    // const beatmapSet = await api.getBeatmapset(beatmapsetId);
+}
 
 async function handleScoreLink(message: Message) {
     const match = message.content.match(scoreRegex);
@@ -45,4 +69,5 @@ export async function run(client: Client, message: Message) {
     await handleCommands(message);
     await handleUserLink(message);
     await handleScoreLink(message);
+    await handleBeatmapLink(message);
 }
