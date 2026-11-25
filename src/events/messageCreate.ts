@@ -6,18 +6,18 @@ import { Ruleset } from 'osu-api-v2-js';
 
 const userRegex = /^https?:\/\/osu.ppy.sh\/users\/([^\/\s]+)(?:\/(osu|fruits|taiko|mania)(?:\/)?)?/;
 const scoreRegex = /^https?:\/\/osu.ppy.sh\/scores\/([^\/\s]+)(?:\/)?/;
-const beatmapRegex = /^https?:\/\/osu\.ppy\.sh\/beatmapsets\/(\d+)(?:#(?:osu|fruits|taiko|mania)\/(\d+))?/;
+const beatmapRegex = /https?:\/\/osu\.ppy\.sh\/(?:beatmapsets\/(\d+)(?:#(?:osu|fruits|taiko|mania)\/(\d+))?|beatmaps\/(\d+))/;
 
 async function handleBeatmapLink(message: Message) {
     const match = message.content.match(beatmapRegex);
     if (!match) return;
 
-    const beatmapsetId = parseInt(match[1]!);
-    const beatmapId = match[2] ? parseInt(match[2]!) : undefined;
+    const beatmapsetId = match?.[1] ? Number(match[1]) : undefined;
+    const beatmapId = match?.[2] || match?.[3]
+        ? Number(match[2] ?? match[3])
+        : undefined;
 
-    if (isNaN(beatmapsetId)) return;
-
-    if (beatmapId) {
+    if (beatmapId && !isNaN(beatmapId)) {
         const beatmap = await api.getBeatmap(beatmapId);
 
         await message.reply({
