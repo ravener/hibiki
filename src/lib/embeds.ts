@@ -150,7 +150,7 @@ export function buildBeatmapEmbed(beatmap: Beatmap.Extended.WithFailtimesOwnersM
             `Length: \`${formatSeconds(beatmap.total_length)}\` (\`${formatSeconds(beatmap.hit_length)}\`) BPM: \`${beatmap.bpm}\` Objects: \`${totalObjects}\``,
             `CS: \`${beatmap.cs}\` AR: \`${beatmap.ar}\` OD: \`${beatmap.accuracy}\` HP: \`${beatmap.drain}\``
         ].join('\n'))
-        .setImage(`https://b.ppy.sh/thumb/${beatmap.beatmapset.id}l.jpg`)
+        .setThumbnail(`https://b.ppy.sh/thumb/${beatmap.beatmapset.id}l.jpg`)
         .setFooter({
             text: `Mapped by ${beatmap.beatmapset.creator} | ${rankStatus}`
         });
