@@ -34,10 +34,9 @@ export class Paginator {
     constructor(message: Message, options?: PaginatorOptions) {
         this.authorMessage = message;
         this.options = {
-            emojis: { ...options?.emojis, ...defaultEmojis },
-            reply: true,
-            timeout: 30_000, // 30 sec
-            ...options
+            reply: options?.reply ?? true,
+            timeout: options?.timeout ?? 30_000, // 30 sec
+            emojis: { ...defaultEmojis, ...options?.emojis }
         };
         this.pages = [];
         this.page = 0; // index to pages
@@ -50,52 +49,42 @@ export class Paginator {
 
     async firstPage() {
         await this.showPage(0);
-        this.page = 0;
     }
 
     async previousPage() {
         if (this.page === 0) return;
-        await this.showPage(--this.page);
+        await this.showPage(this.page - 1);
     }
 
-    async stop() {
-        if (this.collector) {
-            this.collector.stop("user");
-            this.stopped = true;
-        }
+    stop() {
+        this.stopped = true;
+        this.collector?.stop('user');
     }
 
     async nextPage() {
         if (this.page === this.pages.length - 1) return;
-        await this.showPage(++this.page);
+        await this.showPage(this.page + 1);
     }
 
     async lastPage() {
-        const lastPage = this.pages.length - 1;
-        if (this.page === lastPage) return;
-        await this.showPage(lastPage);
-        this.page = lastPage;
+        await this.showPage(this.pages.length - 1);
     }
 
     async showPage(page: number) {
         if (this.stopped) return;
-        if (!this.message) {
-            const embed = this.pages[page];
-            if (!embed) return;
-
-            if (this.options.reply) {
-                this.message = await this.authorMessage.reply({ embeds: [embed] });
-            } else {
-                this.message = await this.authorMessage.send({ embeds: [embed] });
-            }
-
-            return;
-        }
 
         const embed = this.pages[page];
         if (!embed) return;
+
+        if (!this.message) {
+            this.message = this.options.reply
+                ? await this.authorMessage.reply({ embeds: [embed] })
+                : await this.authorMessage.send({ embeds: [embed] });
+        } else {
+            await this.message.edit({ embeds: [embed] });
+        }
+
         this.page = page;
-        await this.message.edit({ embeds: [embed] });
     }
 
     async run() {
@@ -111,7 +100,7 @@ export class Paginator {
 
         this.collector.on('collect', async (reaction, user) => {
             const emojis = this.options.emojis as Required<PaginatorEmojis>;
-            await this.message!.removeReaction(reaction.emojiIdentifier, user.id);
+            await this.message!.removeReaction(reaction.emojiIdentifier, user.id).catch(() => null);
 
             switch (reaction.emojiIdentifier) {
                 case emojis.firstPage:
@@ -121,7 +110,7 @@ export class Paginator {
                     await this.previousPage();
                     break;
                 case emojis.stop:
-                    await this.stop();
+                    this.stop();
                     break;
                 case emojis.nextPage:
                     await this.nextPage();
@@ -132,8 +121,9 @@ export class Paginator {
             }
         });
 
-        this.collector.on('end', async (collected, reason) => {
-            await this.message!.removeAllReactions();
+        this.collector.on('end', async () => {
+            this.stopped = true;
+            await this.message!.removeAllReactions().catch(() => null);
         });
     }
 
